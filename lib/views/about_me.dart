@@ -1,27 +1,28 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_portfolio/globals/app_colors.dart';
 import 'package:my_portfolio/globals/constants.dart';
 import 'package:my_portfolio/helper%20class/helper_class.dart';
 import '../globals/app_text_styles.dart';
 
-class AboutMe extends StatelessWidget {
+class AboutMe extends ConsumerWidget {
   const AboutMe({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
     return HelperClass(
       mobile: Column(
         children: [
-          buildAboutMeContents(),
+          buildAboutMeContents(ref),
         ],
       ),
       tablet: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            child: buildAboutMeContents(),
+            child: buildAboutMeContents(ref),
           ),
         ],
       ),
@@ -29,7 +30,7 @@ class AboutMe extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            child: buildAboutMeContents(),
+            child: buildAboutMeContents(ref),
           ),
         ],
       ),
@@ -38,24 +39,30 @@ class AboutMe extends StatelessWidget {
     );
   }
 
-  Column buildAboutMeContents() {
+  Column buildAboutMeContents(WidgetRef ref) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
         FadeInRight(
           duration: const Duration(milliseconds: 1200),
-          child: RichText(
-            text: TextSpan(
-              text: 'About ',
-              style: AppTextStyles.montserratStyle(fontSize: 30.0, color: Colors.white),
-              children: [
-                TextSpan(
-                  text: 'Me!',
-                  style: AppTextStyles.montserratStyle(
-                      fontSize: 30, color: Colors.grey),
-                )
-              ],
+          child: Center(
+            child: RichText(
+              text: TextSpan(
+                text: ref.watch(languageProvider) == 'en_US'
+                    ? 'About '
+                    : 'Sobre ',
+                style: AppTextStyles.montserratStyle(
+                    fontSize: 30.0, color: Colors.white),
+                children: [
+                  TextSpan(
+                    text:
+                        ref.watch(languageProvider) == 'en_US' ? 'Me' : 'Mim',
+                    style: AppTextStyles.montserratStyle(
+                        fontSize: 30, color: Colors.grey),
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -71,11 +78,13 @@ class AboutMe extends StatelessWidget {
         FadeInLeft(
           duration: const Duration(milliseconds: 1600),
           child: Text(
-            'With a rich hands-on experience gained from challenging projects, I bring a wealth of knowledge cultivated through innovation, self-learning, and a genuine passion for technology. My focus is on crafting elegant and efficient solutions that meet the needs of my clients, ensuring their business goals are achieved with quality and effectiveness.',
+            ref.watch(languageProvider) == 'en_US'
+                ? 'With a rich hands-on experience gained from challenging projects, I bring a wealth of knowledge cultivated through innovation, self-learning, and a genuine passion for technology. My focus is on crafting elegant and efficient solutions that meet the needs of my clients, ensuring their business goals are achieved with quality and effectiveness.'
+                : 'Com uma sólida experiência prática, acumulada em projetos desafiadores, trago uma bagagem repleta de aprendizados. Nestes desafios, fui constantemente impulsionado a inovar, aprimorar minhas habilidades de forma autodidata e, acima de tudo, a nutrir minha paixão pela tecnologia. Minha abordagem é centrada na criação de soluções elegantes e eficientes, que não só atendam, mas superem as expectativas dos meus clientes. Estou comprometido em assegurar que cada projeto não apenas alcance, mas exceda seus objetivos de negócio, proporcionando qualidade e eficácia em cada etapa do processo.',
             style: AppTextStyles.normalStyle(),
+            textAlign: TextAlign.center,
           ),
         ),
-        
       ],
     );
   }

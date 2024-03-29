@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_portfolio/views/about_me.dart';
 import 'package:my_portfolio/views/contact_us.dart';
 import 'package:my_portfolio/views/home_page.dart';
@@ -9,32 +10,18 @@ import '../globals/app_colors.dart';
 import '../globals/app_text_styles.dart';
 import '../globals/constants.dart';
 
-class MainDashBoard extends StatefulWidget {
-  const MainDashBoard({super.key});
+// ignore: must_be_immutable
+class MainDashBoard extends ConsumerWidget {
+  MainDashBoard({super.key});
 
-  @override
-  // ignore: library_private_types_in_public_api
-  _MainDashBoardState createState() => _MainDashBoardState();
-}
-
-class _MainDashBoardState extends State<MainDashBoard> {
-  final ItemScrollController _itemScrollController = ItemScrollController();
+  final ItemScrollController itemScrollController = ItemScrollController();
   final ItemPositionsListener itemPositionsListener =
       ItemPositionsListener.create();
   final ScrollOffsetListener scrollOffsetListener =
       ScrollOffsetListener.create();
   final onMenuHover = Matrix4.identity()..scale(1.0);
-  final menuItems = <String>[
-    'Home',
-    'About',
-    'Services',
-    'Portfolio',
-    'Contact',
-  ];
 
-  var menuIndex = 0;
-
-  final screensList = const <Widget>[
+  final screensList = <Widget>[
     HomePage(),
     AboutMe(),
     MyServices(),
@@ -42,23 +29,36 @@ class _MainDashBoardState extends State<MainDashBoard> {
     ContactUs(),
   ];
 
-  Future scrollTo({required int index}) async {
-    _itemScrollController
+  Future scrollTo({required int index, required WidgetRef ref}) async {
+    itemScrollController
         .scrollTo(
             index: index,
             duration: const Duration(seconds: 2),
             curve: Curves.fastLinearToSlowEaseIn)
         .whenComplete(() {
-      setState(() {
-        menuIndex = index;
-      });
+      ref.read(menuIndexProvider.notifier).state = index;
     });
   }
 
   final yourScrollController = ScrollController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    List menuItems = ref.watch(languageProvider) == 'en_US'
+        ? <String>[
+            'Home',
+            'About',
+            'Skills',
+            'Portfolio',
+            'Contact',
+          ]
+        : <String>[
+            'Início',
+            'Sobre Mim',
+            'Habilidades',
+            'Portifólio',
+            'Contato',
+          ];
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.bgColor,
@@ -78,7 +78,17 @@ class _MainDashBoardState extends State<MainDashBoard> {
                     color: Colors.white,
                     height: 50,
                   ),
-                  const Spacer(),
+                  Spacer(),
+                  InkWell(
+                    child: Image.asset(
+                      'images/logo2.png',
+                      color: Colors.white,
+                      height: 50,
+                    ),
+                    onTap: () {
+                      
+                    },
+                  ),
                   PopupMenuButton(
                     icon: Icon(
                       Icons.menu_sharp,
@@ -88,7 +98,7 @@ class _MainDashBoardState extends State<MainDashBoard> {
                     color: AppColors.bgColor2,
                     position: PopupMenuPosition.under,
                     constraints:
-                        BoxConstraints.tightFor(width: size.width * 0.3),
+                        BoxConstraints.tightFor(width: size.width * 0.4),
                     itemBuilder: (BuildContext context) => menuItems
                         .asMap()
                         .entries
@@ -96,7 +106,7 @@ class _MainDashBoardState extends State<MainDashBoard> {
                           (e) => PopupMenuItem(
                             textStyle: AppTextStyles.headerTextStyle(),
                             onTap: () {
-                              scrollTo(index: e.key);
+                              scrollTo(index: e.key, ref: ref);
                             },
                             child: Center(
                               child: Text(
@@ -119,7 +129,7 @@ class _MainDashBoardState extends State<MainDashBoard> {
                   Image.asset(
                     'images/logo2.png',
                     color: Colors.white,
-                    height: 70,
+                    height: 50,
                   ),
                   const Spacer(),
                   SizedBox(
@@ -133,20 +143,23 @@ class _MainDashBoardState extends State<MainDashBoard> {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
-                            scrollTo(index: index);
+                            scrollTo(index: index, ref: ref);
                           },
                           borderRadius: BorderRadius.circular(100),
                           onHover: (value) {
-                            setState(() {
-                              if (value) {
-                                menuIndex = index;
-                              } else {
-                                menuIndex = -1;
-                              }
-                            });
+                            if (value) {
+                              ref.read(menuIndexProvider.notifier).state =
+                                  index;
+                            } else {
+                              ref.read(menuIndexProvider.notifier).state = -1;
+                            }
                           },
                           child: buildNavBarAnimatedContainer(
-                              index, menuIndex == index ? true : false),
+                              index,
+                              ref.watch(menuIndexProvider) == index
+                                  ? true
+                                  : false,
+                              ref),
                         );
                       },
                     ),
@@ -166,7 +179,7 @@ class _MainDashBoardState extends State<MainDashBoard> {
         controller: yourScrollController,
         child: ScrollablePositionedList.builder(
           itemCount: screensList.length,
-          itemScrollController: _itemScrollController,
+          itemScrollController: itemScrollController,
           itemPositionsListener: itemPositionsListener,
           scrollOffsetListener: scrollOffsetListener,
           itemBuilder: (context, index) {
@@ -177,10 +190,26 @@ class _MainDashBoardState extends State<MainDashBoard> {
     );
   }
 
-  AnimatedContainer buildNavBarAnimatedContainer(int index, bool hover) {
+  AnimatedContainer buildNavBarAnimatedContainer(
+      int index, bool hover, WidgetRef ref) {
+    List menuItems = ref.watch(languageProvider) == 'en_US'
+        ? <String>[
+            'Home',
+            'About',
+            'Skills',
+            'Portfolio',
+            'Contact',
+          ]
+        : <String>[
+            'Início',
+            'Sobre Mim',
+            'Habilidades',
+            'Portifólio',
+            'Contato',
+          ];
     return AnimatedContainer(
       alignment: Alignment.center,
-      width: 80,
+      width: 100,
       duration: const Duration(milliseconds: 200),
       transform: hover ? onMenuHover : null,
       child: Text(

@@ -1,40 +1,29 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_portfolio/globals/app_assets.dart';
 import 'package:my_portfolio/globals/app_colors.dart';
 import 'package:my_portfolio/globals/app_text_styles.dart';
 import 'package:my_portfolio/globals/constants.dart';
 import 'package:my_portfolio/helper%20class/helper_class.dart';
 import 'package:my_portfolio/widgets/profile_animation.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class HomePage extends StatefulWidget {
+// ignore: must_be_immutable
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  final socialButtons = <String>[
-    AppAssets.gmail,
-    AppAssets.zap,
-    AppAssets.linkedIn,
-    AppAssets.github,
-    AppAssets.insta,
-  ];
-
   // ignore: prefer_typing_uninitialized_variables
-  var socialBI;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
     return HelperClass(
       mobile: Column(
         children: [
           const ProfileAnimation(),
-          buildHomePersonalInfo(size),
+          buildHomePersonalInfo(size, ref),
           Constants.sizedBox(height: 25.0),
         ],
       ),
@@ -42,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Expanded(child: buildHomePersonalInfo(size)),
+          Expanded(child: buildHomePersonalInfo(size, ref)),
           const ProfileAnimation(),
         ],
       ),
@@ -50,7 +39,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Expanded(child: buildHomePersonalInfo(size)),
+          Expanded(child: buildHomePersonalInfo(size, ref)),
           const ProfileAnimation(),
         ],
       ),
@@ -59,7 +48,22 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Column buildHomePersonalInfo(Size size) {
+  Column buildHomePersonalInfo(Size size, WidgetRef ref) {
+    final socialButtons = <String>[
+      AppAssets.gmail,
+      AppAssets.zap,
+      AppAssets.linkedIn,
+      AppAssets.github,
+      AppAssets.insta,
+    ];
+    final socialLinks = <String>[
+      'https://mail.google.com/mail/?view=cm&fs=1&to=contato.gabrielmeireles@gmail.com',
+      'https://wa.me/5535999631097',
+      AppAssets.linkedIn,
+      AppAssets.github,
+      AppAssets.insta,
+    ];
+    int? socialBI;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -67,7 +71,9 @@ class _HomePageState extends State<HomePage> {
         FadeInDown(
           duration: const Duration(milliseconds: 1200),
           child: Text(
-            'Hello! I\'m',
+            ref.watch(languageProvider) == 'en_US'
+                ? 'Hello! I\'m'
+                : 'Olá! Meu nome é',
             style: AppTextStyles.montserratStyle(color: Colors.white),
           ),
         ),
@@ -86,7 +92,9 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             children: [
               Text(
-                'And I\'m a ',
+                ref.watch(languageProvider) == 'en_US'
+                    ? 'And I\'m a '
+                    : 'E eu sou um ',
                 style: AppTextStyles.montserratStyle(color: Colors.white),
               ),
               AnimatedTextKit(
@@ -134,7 +142,9 @@ class _HomePageState extends State<HomePage> {
           duration: const Duration(milliseconds: 1600),
           child: Expanded(
             child: Text(
-              'Thoughtfully developed projects that reflect my commitment in every line of code. Together, let\'s build solid and innovative solutions!',
+              ref.watch(languageProvider) == 'en_US'
+                  ? 'Thoughtfully developed projects that reflect my commitment in every line of code. Together, let\'s build solid and innovative solutions!'
+                  : 'Projetos cuidadosamente desenvolvidos que refletem meu comprometimento em cada linha de código. Juntos, vamos construir soluções sólidas e inovadoras!',
               style: AppTextStyles.normalStyle(),
             ),
           ),
@@ -154,20 +164,19 @@ class _HomePageState extends State<HomePage> {
                 return InkWell(
                   onTap: () {},
                   onHover: (value) {
-                    setState(() {
-                      if (value) {
-                        socialBI = index;
-                      } else {
-                        socialBI = null;
-                      }
-                    });
+                    if (value) {
+                      socialBI = index;
+                    } else {
+                      socialBI = null;
+                    }
                   },
                   borderRadius: BorderRadius.circular(550.0),
                   hoverColor: AppColors.themeColor,
                   splashColor: AppColors.lawGreen,
                   child: buildSocialButton(
                       asset: socialButtons[index],
-                      hover: socialBI == index ? true : false),
+                      hover: socialBI == index ? true : false,
+                      link: socialLinks[0]),
                 );
               },
             ),
@@ -177,7 +186,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Ink buildSocialButton({required String asset, required bool hover}) {
+  Ink buildSocialButton(
+      {required String asset, required bool hover, required String link}) {
     return Ink(
       width: 45,
       height: 45,
@@ -187,12 +197,22 @@ class _HomePageState extends State<HomePage> {
         shape: BoxShape.circle,
       ),
       padding: const EdgeInsets.all(6),
-      child: Image.asset(
-        asset,
-        width: 10,
-        height: 12,
-        color: hover ? AppColors.bgColor : AppColors.themeColor,
-        // fit: BoxFit.fill,
+      child: InkWell(
+        onTap: () async {
+          String url = link;
+          if (await canLaunchUrl(Uri.parse(url))) {
+            await launchUrl(Uri.parse(url));
+          } else {
+            throw 'Could not launch $url';
+          }
+        },
+        child: Image.asset(
+          asset,
+          width: 10,
+          height: 12,
+          color: hover ? AppColors.bgColor : AppColors.themeColor,
+          // fit: BoxFit.fill,
+        ),
       ),
     );
   }

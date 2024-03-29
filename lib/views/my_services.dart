@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_portfolio/globals/app_assets.dart';
 import 'package:my_portfolio/globals/app_colors.dart';
 import 'package:my_portfolio/globals/constants.dart';
@@ -7,71 +8,70 @@ import 'package:my_portfolio/helper%20class/helper_class.dart';
 
 import '../globals/app_text_styles.dart';
 
-class MyServices extends StatefulWidget {
-  const MyServices({super.key});
-
-  @override
-  State<MyServices> createState() => _MyServicesState();
-}
-
-class _MyServicesState extends State<MyServices> {
-  bool isApp = false, isGraphic = false, isDataAnalyst = false;
+// ignore: must_be_immutable
+class MyServices extends ConsumerWidget {
+  MyServices({super.key});
 
   final onHoverActive = Matrix4.identity()..translate(0, -10, 0);
   final onHoverRemove = Matrix4.identity()..translate(0, 0, 0);
 
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
     return HelperClass(
       mobile: Column(
         // mainAxisSize: MainAxisSize.min,
         children: [
-          buildMyServicesText(),
+          buildMyServicesText(ref),
           Constants.sizedBox(height: 60.0),
           InkWell(
             onTap: () {},
             onHover: (value) {
-              setState(() {
-                isApp = value;
-              });
+              ref.read(isAppProvider.notifier).state = value;
             },
             child: buildAnimatedContainer(
-              title: 'Front-End Development',
-              info: '''with Flutter:\n\nCreating beautiful, functional, and responsive apps that deliver an exceptional user experience across multiple platforms.''',
+              title: ref.watch(languageProvider) == 'en_US'
+                  ? 'Front-End Development'
+                  : 'Desenvolvimento\nFront-End',
+              info: ref.watch(languageProvider) == 'en_US'
+                  ? '''with Flutter:\n\nCreating beautiful, functional, and responsive apps that deliver an exceptional user experience across multiple platforms.'''
+                  : '''com Flutter:\n\nCriação de aplicativos belos, funcionais e responsivos que oferecem uma experiência de usuário excepcional em múltiplas plataformas.''',
               asset: AppAssets.brush,
-              hover: isApp,
+              hover: ref.watch(isAppProvider),
             ),
           ),
           Constants.sizedBox(height: 24.0),
           InkWell(
             onTap: () {},
             onHover: (value) {
-              setState(() {
-                isGraphic = value;
-              });
+              ref.read(isGraphicProvider.notifier).state = value;
             },
             child: buildAnimatedContainer(
-              title: 'Back-End Development',
+              title: ref.watch(languageProvider) == 'en_US'
+                  ? 'Back-End Development'
+                  : 'Desenvolvimento\nBack-End',
               asset: AppAssets.code,
-              info: '''with Python:\n\nBuilding robust APIs, task automation, data processing, and system integration with clean and efficient code.''',
-              hover: isGraphic,
+              info: ref.watch(languageProvider) == 'en_US'
+                  ? '''with Python:\n\nBuilding robust APIs, task automation, data processing, and system integration with clean and efficient code.'''
+                  : '''com Python:\n\nConstrução de APIs robustas, automação de tarefas, processamento de dados e integração de sistemas com código limpo e eficiente.''',
+              hover: ref.watch(isGraphicProvider),
             ),
           ),
           Constants.sizedBox(height: 24.0),
           InkWell(
             onTap: () {},
             onHover: (value) {
-              setState(() {
-                isDataAnalyst = value;
-              });
+              ref.read(isDataAnalystProvider.notifier).state = value;
             },
             child: buildAnimatedContainer(
-              title: 'Robust Database',
+              title: ref.watch(languageProvider) == 'en_US'
+                  ? 'Robust Database'
+                  : 'Base de Dados Robusta',
               asset: AppAssets.analyst,
-              info: '''with MySQL and Firebase:\n\nCreating and managing robust database solutions, using MySQL for systems with high transaction volumes and Firebase for applications requiring real-time data synchronization and automatic scalability.''',
-              hover: isDataAnalyst,
+              info: ref.watch(languageProvider) == 'en_US'
+                  ? '''with MySQL and Firebase:\n\nCreating and managing robust database solutions, using MySQL for systems with high transaction volumes and Firebase for applications requiring real-time data synchronization and automatic scalability.'''
+                  : '''com MySQL e Firebase:\n\nCriação e gestão de soluções de banco de dados robustas, utilizando MySQL para sistemas com grande volume de transações e Firebase para aplicações que requerem sincronização de dados em tempo real e escalabilidade automática.''',
+              hover: ref.watch(isDataAnalystProvider),
             ),
           )
         ],
@@ -79,7 +79,7 @@ class _MyServicesState extends State<MyServices> {
       tablet: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          buildMyServicesText(),
+          buildMyServicesText(ref),
           Constants.sizedBox(height: 60.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -87,30 +87,34 @@ class _MyServicesState extends State<MyServices> {
               InkWell(
                 onTap: () {},
                 onHover: (value) {
-                  setState(() {
-                    isApp = value;
-                  });
+                  ref.read(isAppProvider.notifier).state = value;
                 },
                 child: buildAnimatedContainer(
-                  title: 'Front-End Development',
+                  title: ref.watch(languageProvider) == 'en_US'
+                      ? 'Front-End Development'
+                      : 'Desenvolvimento\nFront-End',
+                  info: ref.watch(languageProvider) == 'en_US'
+                      ? '''with Flutter:\n\nCreating beautiful, functional, and responsive apps that deliver an exceptional user experience across multiple platforms.'''
+                      : '''com Flutter:\n\nCriação de aplicativos belos, funcionais e responsivos que oferecem uma experiência de usuário excepcional em múltiplas plataformas.''',
                   asset: AppAssets.brush,
-                  info: '''with Flutter:\n\nCreating beautiful, functional, and responsive apps that deliver an exceptional user experience across multiple platforms.''',
-                  hover: isApp,
+                  hover: ref.watch(isAppProvider),
                 ),
               ),
               Constants.sizedBox(width: 24.0),
               InkWell(
                 onTap: () {},
                 onHover: (value) {
-                  setState(() {
-                    isGraphic = value;
-                  });
+                  ref.read(isGraphicProvider.notifier).state = value;
                 },
                 child: buildAnimatedContainer(
-                  title: 'Back-End Development',
+                  title: ref.watch(languageProvider) == 'en_US'
+                      ? 'Back-End Development'
+                      : 'Desenvolvimento\nBack-End',
                   asset: AppAssets.code,
-                   info: '''with Python:\n\nBuilding robust APIs, task automation, data processing, and system integration with clean and efficient code.''',
-                  hover: isGraphic,
+                  info: ref.watch(languageProvider) == 'en_US'
+                      ? '''with Python:\n\nBuilding robust APIs, task automation, data processing, and system integration with clean and efficient code.'''
+                      : '''com Python:\n\nConstrução de APIs robustas, automação de tarefas, processamento de dados e integração de sistemas com código limpo e eficiente.''',
+                  hover: ref.watch(isGraphicProvider),
                 ),
               ),
             ],
@@ -119,15 +123,17 @@ class _MyServicesState extends State<MyServices> {
           InkWell(
             onTap: () {},
             onHover: (value) {
-              setState(() {
-                isDataAnalyst = value;
-              });
+              ref.read(isDataAnalystProvider.notifier).state = value;
             },
             child: buildAnimatedContainer(
-              title: 'Robust Database',
+              title: ref.watch(languageProvider) == 'en_US'
+                  ? 'Robust Database'
+                  : 'Base de Dados Robusta',
               asset: AppAssets.analyst,
-              info: '''with MySQL and Firebase:\n\nCreating and managing robust database solutions, using MySQL for systems with high transaction volumes and Firebase for applications requiring real-time data synchronization and automatic scalability.''',
-              hover: isDataAnalyst,
+              info: ref.watch(languageProvider) == 'en_US'
+                  ? '''with MySQL and Firebase:\n\nCreating and managing robust database solutions, using MySQL for systems with high transaction volumes and Firebase for applications requiring real-time data synchronization and automatic scalability.'''
+                  : '''com MySQL e Firebase:\n\nCriação e gestão de soluções de banco de dados robustas, utilizando MySQL para sistemas com grande volume de transações e Firebase para aplicações que requerem sincronização de dados em tempo real e escalabilidade automática.''',
+              hover: ref.watch(isDataAnalystProvider),
               width: 725.0,
               hoverWidth: 735.0,
             ),
@@ -137,7 +143,7 @@ class _MyServicesState extends State<MyServices> {
       desktop: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          buildMyServicesText(),
+          buildMyServicesText(ref),
           Constants.sizedBox(height: 60.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -145,45 +151,50 @@ class _MyServicesState extends State<MyServices> {
               InkWell(
                 onTap: () {},
                 onHover: (value) {
-                  setState(() {
-                    isApp = value;
-                  });
+                  ref.read(isAppProvider.notifier).state = value;
                 },
                 child: buildAnimatedContainer(
-                  title: 'Front-End Development',
+                  title: ref.watch(languageProvider) == 'en_US'
+                      ? 'Front-End Development'
+                      : 'Desenvolvimento\nFront-End',
+                  info: ref.watch(languageProvider) == 'en_US'
+                      ? '''with Flutter:\n\nCreating beautiful, functional, and responsive apps that deliver an exceptional user experience across multiple platforms.'''
+                      : '''com Flutter:\n\nCriação de aplicativos belos, funcionais e responsivos que oferecem uma experiência de usuário excepcional em múltiplas plataformas.''',
                   asset: AppAssets.brush,
-                  info: '''with Flutter:\n\nCreating beautiful, functional, and responsive apps that deliver an exceptional user experience across multiple platforms.''',
-                  hover: isApp,
+                  hover: ref.watch(isAppProvider),
                 ),
               ),
               Constants.sizedBox(width: 24.0),
               InkWell(
                 onTap: () {},
                 onHover: (value) {
-                  setState(() {
-                    isGraphic = value;
-                  });
+                  ref.read(isGraphicProvider.notifier).state = value;
                 },
                 child: buildAnimatedContainer(
-                  title: 'Back-End Development',
+                  title: ref.watch(languageProvider) == 'en_US'
+                      ? 'Back-End Development'
+                      : 'Desenvolvimento\nBack-End',
                   asset: AppAssets.code,
-                  info: '''with Python:\n\nBuilding robust APIs, task automation, data processing, and system integration with clean and efficient code.''',
-                  hover: isGraphic,
+                  info: ref.watch(languageProvider) == 'en_US'
+                      ? '''with Python:\n\nBuilding robust APIs, task automation, data processing, and system integration with clean and efficient code.'''
+                      : '''com Python:\n\nConstrução de APIs robustas, automação de tarefas, processamento de dados e integração de sistemas com código limpo e eficiente.''',
+                  hover: ref.watch(isGraphicProvider),
                 ),
               ),
               Constants.sizedBox(width: 24.0),
               InkWell(
                 onTap: () {},
                 onHover: (value) {
-                  setState(() {
-                    isDataAnalyst = value;
-                  });
+                  ref.read(isDataAnalystProvider.notifier).state = value;
                 },
                 child: buildAnimatedContainer(
-                  title: 'Robust Database',
+                  title: ref.watch(languageProvider) == 'en_US'
+                      ? 'Robust Database'
+                      : 'Base de Dados Robusta',
                   asset: AppAssets.analyst,
-                  info: '''with MySQL and Firebase:\n\nCreating and managing robust database solutions, using MySQL for systems with high transaction volumes and Firebase for applications requiring real-time data synchronization and automatic scalability.''',
-                  hover: isDataAnalyst,
+                  info:
+                      '''with MySQL and Firebase:\n\nCreating and managing robust database solutions, using MySQL for systems with high transaction volumes and Firebase for applications requiring real-time data synchronization and automatic scalability.''',
+                  hover: ref.watch(isDataAnalystProvider),
                 ),
               )
             ],
@@ -195,16 +206,19 @@ class _MyServicesState extends State<MyServices> {
     );
   }
 
-  FadeInDown buildMyServicesText() {
+  FadeInDown buildMyServicesText(WidgetRef ref) {
     return FadeInDown(
       duration: const Duration(milliseconds: 1200),
       child: RichText(
         text: TextSpan(
-          text: 'My ',
-          style: AppTextStyles.montserratStyle(fontSize: 30.0, color: Colors.white),
+          text: ref.watch(languageProvider) == 'en_US'
+              ? 'My ' : 'Minhas ',
+          style: AppTextStyles.montserratStyle(
+              fontSize: 30.0, color: Colors.white),
           children: [
             TextSpan(
-              text: 'Skills',
+              text: ref.watch(languageProvider) == 'en_US'
+              ? 'Skills' : 'Habilidades',
               style: AppTextStyles.montserratStyle(
                   fontSize: 30.0, color: Colors.grey),
             )
@@ -256,6 +270,7 @@ class _MyServicesState extends State<MyServices> {
             title,
             style: AppTextStyles.montserratStyle(
                 color: Colors.white, fontSize: 22.0),
+            textAlign: TextAlign.center,
           ),
           Constants.sizedBox(height: 12.0),
           Text(
