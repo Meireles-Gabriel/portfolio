@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_portfolio/views/main_dashboard.dart';
 
 void main() {
@@ -12,15 +13,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PageStorageBucket bucket = PageStorageBucket();
-    return MaterialApp(
-      title: 'Gabriel Meireles\'s Portfolio',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-      ),
-      home: PageStorage(
-        bucket: bucket,
-        child: const MainDashBoard(),
+    return ProviderScope(
+      child: MaterialApp(
+        title: 'Gabriel Meireles\'s Portfolio',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.grey,
+        ),
+        home: PageStorage(
+          bucket: bucket,
+          child: MainDashBoard(),
+        ),
       ),
     );
   }

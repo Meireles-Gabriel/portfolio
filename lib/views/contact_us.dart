@@ -1,23 +1,24 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_portfolio/globals/app_buttons.dart';
 import 'package:my_portfolio/helper%20class/helper_class.dart';
 import '../globals/app_colors.dart';
 import '../globals/app_text_styles.dart';
 import '../globals/constants.dart';
 
-class ContactUs extends StatelessWidget {
+class ContactUs extends ConsumerWidget {
   const ContactUs({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
     return HelperClass(
       mobile: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          buildContactText(),
+          buildContactText(ref),
           Constants.sizedBox(height: 40.0),
           Material(
             borderRadius: BorderRadius.circular(10),
@@ -26,7 +27,8 @@ class ContactUs extends StatelessWidget {
             child: TextField(
               cursorColor: AppColors.white,
               style: AppTextStyles.montserratStyle(color: Colors.white,).copyWith(fontWeight: FontWeight.w100),
-              decoration: buildInputDecoration(hintText: 'Full Name'),
+              decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
+              ? 'Full Name' : 'Nome Completo'),
             ),
           ),
           Constants.sizedBox(height: 20.0),
@@ -38,7 +40,7 @@ class ContactUs extends StatelessWidget {
               cursorColor: AppColors.white,
               style: AppTextStyles.montserratStyle(color: Colors.white).copyWith(fontWeight: FontWeight.w100)
                   ,
-              decoration: buildInputDecoration(hintText: 'Email Address'),
+              decoration: buildInputDecoration(hintText: 'Email'),
             ),
           ),
           Constants.sizedBox(height: 20.0),
@@ -50,7 +52,8 @@ class ContactUs extends StatelessWidget {
               cursorColor: AppColors.white,
               style: AppTextStyles.montserratStyle(color: Colors.white)
                   .copyWith(fontWeight: FontWeight.w100),
-              decoration: buildInputDecoration(hintText: 'Mobile Number'),
+              decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
+              ? 'Mobile Number': 'Número de celular'),
             ),
           ),
           Constants.sizedBox(height: 20.0),
@@ -62,7 +65,8 @@ class ContactUs extends StatelessWidget {
               cursorColor: AppColors.white,
               style: AppTextStyles.montserratStyle(color: Colors.white)
                   .copyWith(fontWeight: FontWeight.w100),
-              decoration: buildInputDecoration(hintText: 'Email Subject'),
+              decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
+              ? 'Subject' : 'Assunto'),
             ),
           ),
           Constants.sizedBox(height: 20.0),
@@ -75,28 +79,30 @@ class ContactUs extends StatelessWidget {
               cursorColor: AppColors.white,
               style: AppTextStyles.montserratStyle(color: Colors.white)
                   .copyWith(fontWeight: FontWeight.w100),
-              decoration: buildInputDecoration(hintText: 'Your Message'),
+              decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
+              ? 'Your Message' : 'Sua Mensagem'),
             ),
           ),
           Constants.sizedBox(height: 40.0),
           AppButtons.buildMaterialButton(
-              buttonName: 'Send Message', onTap: () {}),
+              buttonName: ref.watch(languageProvider) == 'en_US'
+              ? 'Send Message' : 'Enviar Mensagem', onTap: () {}),
           Constants.sizedBox(height: 30.0),
         ],
       ),
-      tablet: buildForm(),
-      desktop: buildForm(),
+      tablet: buildForm(ref),
+      desktop: buildForm(ref),
       paddingWidth: size.width * 0.2,
       bgColor: AppColors.bgColor,
     );
   }
 
-  Column buildForm() {
+  Column buildForm(ref) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        buildContactText(),
+        buildContactText(ref),
         Constants.sizedBox(height: 40.0),
         Row(
           children: [
@@ -108,7 +114,8 @@ class ContactUs extends StatelessWidget {
                 child: TextField(
                   cursorColor: AppColors.white,
                   style: AppTextStyles.montserratStyle(color: Colors.white).copyWith(fontWeight: FontWeight.w100),
-                  decoration: buildInputDecoration(hintText: 'Full Name'),
+                  decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
+              ? 'Full Name' : 'Nome Completo'),
                 ),
               ),
             ),
@@ -121,7 +128,7 @@ class ContactUs extends StatelessWidget {
                 child: TextField(
                   cursorColor: AppColors.white,
                   style: AppTextStyles.montserratStyle(color: Colors.white).copyWith(fontWeight: FontWeight.w100),
-                  decoration: buildInputDecoration(hintText: 'Email Address'),
+                  decoration: buildInputDecoration(hintText: 'Email'),
                 ),
               ),
             ),
@@ -139,7 +146,8 @@ class ContactUs extends StatelessWidget {
                   cursorColor: AppColors.white,
                   style: AppTextStyles.montserratStyle(color: Colors.white)
                       .copyWith(fontWeight: FontWeight.w100),
-                  decoration: buildInputDecoration(hintText: 'Mobile Number'),
+                  decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
+              ? 'Mobile Number' : 'Número de celular'),
                 ),
               ),
             ),
@@ -153,7 +161,8 @@ class ContactUs extends StatelessWidget {
                   cursorColor: AppColors.white,
                   style: AppTextStyles.montserratStyle(color: Colors.white)
                       .copyWith(fontWeight: FontWeight.w100),
-                  decoration: buildInputDecoration(hintText: 'Email Subject'),
+                  decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
+              ? 'Subject' : 'Assunto'),
                 ),
               ),
             ),
@@ -170,27 +179,31 @@ class ContactUs extends StatelessWidget {
             cursorColor: AppColors.white,
             style: AppTextStyles.montserratStyle(color: Colors.white)
                 .copyWith(fontWeight: FontWeight.w100),
-            decoration: buildInputDecoration(hintText: 'Your Message'),
+            decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
+              ? 'Your Message': 'Sua Mensagem'),
           ),
         ),
         Constants.sizedBox(height: 40.0),
         AppButtons.buildMaterialButton(
-            buttonName: 'Send Message', onTap: () {}),
+            buttonName: ref.watch(languageProvider) == 'en_US'
+              ? 'Send Message' : 'Enviar Mensagem', onTap: () {}),
         Constants.sizedBox(height: 30.0),
       ],
     );
   }
 
-  FadeInDown buildContactText() {
+  FadeInDown buildContactText(WidgetRef ref) {
     return FadeInDown(
       duration: const Duration(milliseconds: 1200),
       child: RichText(
         text: TextSpan(
-          text: 'Contact ',
+          text: ref.watch(languageProvider) == 'en_US'
+              ? 'Contact ' : 'Entre em ',
           style: AppTextStyles.montserratStyle(fontSize: 30.0, color: Colors.white),
           children: [
             TextSpan(
-              text: 'Me!',
+              text: ref.watch(languageProvider) == 'en_US'
+              ? 'Me!' : 'Contato!',
               style: AppTextStyles.montserratStyle(
                   fontSize: 30, color: Colors.grey),
             )
