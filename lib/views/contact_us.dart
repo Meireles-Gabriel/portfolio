@@ -1,18 +1,26 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_portfolio/globals/app_assets.dart';
 import 'package:my_portfolio/globals/app_buttons.dart';
 import 'package:my_portfolio/helper%20class/helper_class.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../globals/app_colors.dart';
 import '../globals/app_text_styles.dart';
 import '../globals/constants.dart';
 
 class ContactUs extends ConsumerWidget {
-  const ContactUs({super.key});
+  ContactUs({super.key});
+
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController numberController = TextEditingController();
+  final TextEditingController subjectController = TextEditingController();
+  final TextEditingController messageController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.sizeOf(context);
     return HelperClass(
       mobile: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -25,10 +33,15 @@ class ContactUs extends ConsumerWidget {
             color: Colors.transparent,
             elevation: 8,
             child: TextField(
+              controller: nameController,
               cursorColor: AppColors.white,
-              style: AppTextStyles.montserratStyle(color: Colors.white,).copyWith(fontWeight: FontWeight.w100),
-              decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
-              ? 'Full Name' : 'Nome Completo'),
+              style: AppTextStyles.montserratStyle(
+                color: Colors.white,
+              ).copyWith(fontWeight: FontWeight.w100),
+              decoration: buildInputDecoration(
+                  hintText: ref.watch(languageProvider) == 'en_US'
+                      ? 'Full Name'
+                      : 'Nome Completo'),
             ),
           ),
           Constants.sizedBox(height: 20.0),
@@ -37,9 +50,10 @@ class ContactUs extends ConsumerWidget {
             color: Colors.transparent,
             elevation: 8,
             child: TextField(
+              controller: emailController,
               cursorColor: AppColors.white,
-              style: AppTextStyles.montserratStyle(color: Colors.white).copyWith(fontWeight: FontWeight.w100)
-                  ,
+              style: AppTextStyles.montserratStyle(color: Colors.white)
+                  .copyWith(fontWeight: FontWeight.w100),
               decoration: buildInputDecoration(hintText: 'Email'),
             ),
           ),
@@ -49,11 +63,14 @@ class ContactUs extends ConsumerWidget {
             color: Colors.transparent,
             elevation: 8,
             child: TextField(
+              controller: numberController,
               cursorColor: AppColors.white,
               style: AppTextStyles.montserratStyle(color: Colors.white)
                   .copyWith(fontWeight: FontWeight.w100),
-              decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
-              ? 'Mobile Number': 'Número de celular'),
+              decoration: buildInputDecoration(
+                  hintText: ref.watch(languageProvider) == 'en_US'
+                      ? 'Mobile Number'
+                      : 'Número de celular'),
             ),
           ),
           Constants.sizedBox(height: 20.0),
@@ -62,11 +79,14 @@ class ContactUs extends ConsumerWidget {
             color: Colors.transparent,
             elevation: 8,
             child: TextField(
+              controller: subjectController,
               cursorColor: AppColors.white,
               style: AppTextStyles.montserratStyle(color: Colors.white)
                   .copyWith(fontWeight: FontWeight.w100),
-              decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
-              ? 'Subject' : 'Assunto'),
+              decoration: buildInputDecoration(
+                  hintText: ref.watch(languageProvider) == 'en_US'
+                      ? 'Subject'
+                      : 'Assunto'),
             ),
           ),
           Constants.sizedBox(height: 20.0),
@@ -75,35 +95,42 @@ class ContactUs extends ConsumerWidget {
             color: Colors.transparent,
             elevation: 8,
             child: TextField(
+              controller: messageController,
               maxLines: 15,
               cursorColor: AppColors.white,
               style: AppTextStyles.montserratStyle(color: Colors.white)
                   .copyWith(fontWeight: FontWeight.w100),
-              decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
-              ? 'Your Message' : 'Sua Mensagem'),
+              decoration: buildInputDecoration(
+                  hintText: ref.watch(languageProvider) == 'en_US'
+                      ? 'Your Message'
+                      : 'Sua Mensagem'),
             ),
           ),
           Constants.sizedBox(height: 40.0),
           AppButtons.buildMaterialButton(
               buttonName: ref.watch(languageProvider) == 'en_US'
-              ? 'Send Message' : 'Enviar Mensagem', onTap: () {}),
+                  ? 'Send Message'
+                  : 'Enviar Mensagem',
+              onTap: () {}),
           Constants.sizedBox(height: 30.0),
         ],
       ),
-      tablet: buildForm(ref),
-      desktop: buildForm(ref),
+      tablet: buildForm(ref, context),
+      desktop: buildForm(ref, context),
       paddingWidth: size.width * 0.2,
       bgColor: AppColors.bgColor,
     );
   }
 
-  Column buildForm(ref) {
+  Column buildForm(ref, context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
         buildContactText(ref),
         Constants.sizedBox(height: 40.0),
+        buildHomePersonalInfo(MediaQuery.of(context).size, ref),
+        Constants.sizedBox(height: 20.0),
         Row(
           children: [
             Expanded(
@@ -112,10 +139,14 @@ class ContactUs extends ConsumerWidget {
                 color: Colors.transparent,
                 elevation: 8,
                 child: TextField(
+                  controller: nameController,
                   cursorColor: AppColors.white,
-                  style: AppTextStyles.montserratStyle(color: Colors.white).copyWith(fontWeight: FontWeight.w100),
-                  decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
-              ? 'Full Name' : 'Nome Completo'),
+                  style: AppTextStyles.montserratStyle(color: Colors.white)
+                      .copyWith(fontWeight: FontWeight.w100),
+                  decoration: buildInputDecoration(
+                      hintText: ref.watch(languageProvider) == 'en_US'
+                          ? 'Full Name'
+                          : 'Nome Completo'),
                 ),
               ),
             ),
@@ -126,8 +157,10 @@ class ContactUs extends ConsumerWidget {
                 color: Colors.transparent,
                 elevation: 8,
                 child: TextField(
+                  controller: emailController,
                   cursorColor: AppColors.white,
-                  style: AppTextStyles.montserratStyle(color: Colors.white).copyWith(fontWeight: FontWeight.w100),
+                  style: AppTextStyles.montserratStyle(color: Colors.white)
+                      .copyWith(fontWeight: FontWeight.w100),
                   decoration: buildInputDecoration(hintText: 'Email'),
                 ),
               ),
@@ -143,11 +176,14 @@ class ContactUs extends ConsumerWidget {
                 color: Colors.transparent,
                 elevation: 8,
                 child: TextField(
+                  controller: numberController,
                   cursorColor: AppColors.white,
                   style: AppTextStyles.montserratStyle(color: Colors.white)
                       .copyWith(fontWeight: FontWeight.w100),
-                  decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
-              ? 'Mobile Number' : 'Número de celular'),
+                  decoration: buildInputDecoration(
+                      hintText: ref.watch(languageProvider) == 'en_US'
+                          ? 'Mobile Number'
+                          : 'Número de celular'),
                 ),
               ),
             ),
@@ -158,11 +194,14 @@ class ContactUs extends ConsumerWidget {
                 color: Colors.transparent,
                 elevation: 8,
                 child: TextField(
+                  controller: subjectController,
                   cursorColor: AppColors.white,
                   style: AppTextStyles.montserratStyle(color: Colors.white)
                       .copyWith(fontWeight: FontWeight.w100),
-                  decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
-              ? 'Subject' : 'Assunto'),
+                  decoration: buildInputDecoration(
+                      hintText: ref.watch(languageProvider) == 'en_US'
+                          ? 'Subject'
+                          : 'Assunto'),
                 ),
               ),
             ),
@@ -174,21 +213,114 @@ class ContactUs extends ConsumerWidget {
           color: Colors.transparent,
           elevation: 8,
           child: TextField(
-            
+            controller: messageController,
             maxLines: 15,
             cursorColor: AppColors.white,
             style: AppTextStyles.montserratStyle(color: Colors.white)
                 .copyWith(fontWeight: FontWeight.w100),
-            decoration: buildInputDecoration(hintText: ref.watch(languageProvider) == 'en_US'
-              ? 'Your Message': 'Sua Mensagem'),
+            decoration: buildInputDecoration(
+                hintText: ref.watch(languageProvider) == 'en_US'
+                    ? 'Your Message'
+                    : 'Sua Mensagem'),
           ),
         ),
         Constants.sizedBox(height: 40.0),
         AppButtons.buildMaterialButton(
             buttonName: ref.watch(languageProvider) == 'en_US'
-              ? 'Send Message' : 'Enviar Mensagem', onTap: () {}),
+                ? 'Send Message'
+                : 'Enviar Mensagem',
+            onTap: () async {
+              if (messageController.text != '') {
+                String url =
+                    '''https://mail.google.com/mail/?view=cm&fs=1&to=contato.gabrielmeireles@gmail.com&su=${subjectController.text.replaceAll(' ', '%20')}&body=${nameController.text.replaceAll(' ', '%20')}%0A${emailController.text.replaceAll(' ', '%20')}%0A${numberController.text.replaceAll(' ', '%20')}%0A%0A${messageController.text.replaceAll(' ', '%20')}''';
+                await launchUrl(Uri.parse(url));
+                nameController.text = '';
+                emailController.text = '';
+                numberController.text = '';
+                subjectController.text = '';
+                messageController.text = '';
+              }
+            }),
         Constants.sizedBox(height: 30.0),
       ],
+    );
+  }
+
+  FadeInUp buildHomePersonalInfo(Size size, WidgetRef ref) {
+    final socialButtons = <String>[
+      AppAssets.gmail,
+      AppAssets.zap,
+      AppAssets.linkedIn,
+      AppAssets.github,
+    ];
+    final socialLinks = <String>[
+      'https://mail.google.com/mail/?view=cm&fs=1&to=contato.gabrielmeireles@gmail.com',
+      'https://wa.me/5535999631097',
+      'https://www.linkedin.com/in/developer-gabriel-meireles/',
+      'https://github.com/Meireles-Gabriel',
+    ];
+    int? socialBI;
+    return FadeInUp(
+      duration: const Duration(milliseconds: 1600),
+      child: SizedBox(
+        height: 48,
+        child: ListView.separated(
+          itemCount: socialButtons.length,
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          separatorBuilder: (context, child) => Constants.sizedBox(width: 8.0),
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () {},
+              onHover: (value) {
+                if (value) {
+                  socialBI = index;
+                } else {
+                  socialBI = null;
+                }
+              },
+              borderRadius: BorderRadius.circular(550.0),
+              hoverColor: AppColors.themeColor,
+              splashColor: AppColors.lawGreen,
+              child: buildSocialButton(
+                  asset: socialButtons[index],
+                  hover: socialBI == index ? true : false,
+                  link: socialLinks[index]),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Ink buildSocialButton(
+      {required String asset, required bool hover, required String link}) {
+    return Ink(
+      width: 45,
+      height: 45,
+      decoration: BoxDecoration(
+        border: Border.all(color: AppColors.themeColor, width: 2.0),
+        color: AppColors.bgColor,
+        shape: BoxShape.circle,
+      ),
+      padding: const EdgeInsets.all(6),
+      child: InkWell(
+        onTap: () async {
+          String url = link;
+          if (await canLaunchUrl(Uri.parse(url))) {
+            await launchUrl(Uri.parse(url));
+          } else {
+            throw 'Could not launch $url';
+          }
+        },
+        child: Image.asset(
+          asset,
+          width: 10,
+          height: 12,
+          color: hover ? AppColors.bgColor : AppColors.themeColor,
+          // fit: BoxFit.fill,
+        ),
+      ),
     );
   }
 
@@ -197,13 +329,13 @@ class ContactUs extends ConsumerWidget {
       duration: const Duration(milliseconds: 1200),
       child: RichText(
         text: TextSpan(
-          text: ref.watch(languageProvider) == 'en_US'
-              ? 'Contact ' : 'Entre em ',
-          style: AppTextStyles.montserratStyle(fontSize: 30.0, color: Colors.white),
+          text:
+              ref.watch(languageProvider) == 'en_US' ? 'Contact ' : 'Entre em ',
+          style: AppTextStyles.montserratStyle(
+              fontSize: 30.0, color: Colors.white),
           children: [
             TextSpan(
-              text: ref.watch(languageProvider) == 'en_US'
-              ? 'Me!' : 'Contato!',
+              text: ref.watch(languageProvider) == 'en_US' ? 'Me!' : 'Contato!',
               style: AppTextStyles.montserratStyle(
                   fontSize: 30, color: Colors.grey),
             )

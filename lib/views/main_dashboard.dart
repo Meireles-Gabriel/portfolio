@@ -4,7 +4,7 @@ import 'package:my_portfolio/views/about_me.dart';
 import 'package:my_portfolio/views/contact_us.dart';
 import 'package:my_portfolio/views/home_page.dart';
 import 'package:my_portfolio/views/my_portfolio.dart';
-import 'package:my_portfolio/views/my_services.dart';
+import 'package:my_portfolio/views/my_skills.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../globals/app_colors.dart';
 import '../globals/app_text_styles.dart';
@@ -23,9 +23,9 @@ class MainDashBoard extends ConsumerWidget {
 
   final screensList = <Widget>[
     HomePage(),
-    AboutMe(),
-    MyServices(),
+    MySkills(),
     MyPortfolio(),
+    AboutMe(),
     ContactUs(),
   ];
 
@@ -47,16 +47,16 @@ class MainDashBoard extends ConsumerWidget {
     List menuItems = ref.watch(languageProvider) == 'en_US'
         ? <String>[
             'Home',
-            'About',
             'Skills',
             'Portfolio',
+            'About Me',
             'Contact',
           ]
         : <String>[
             'Início',
+            'Qualificações',
+            'Portfólio',
             'Sobre Mim',
-            'Habilidades',
-            'Portifólio',
             'Contato',
           ];
     final Size size = MediaQuery.of(context).size;
@@ -73,22 +73,31 @@ class MainDashBoard extends ConsumerWidget {
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Image.asset(
-                    'images/logo2.png',
-                    color: Colors.white,
-                    height: 50,
+                  Column(
+                    children: [
+                      InkWell(
+                        child: Image.asset(
+                          ref.watch(languageProvider) == 'pt_BR'
+                              ? 'images/en_US.png'
+                              : 'images/pt_BR.png',
+                          color: Colors.white,
+                          height: 30,
+                        ),
+                        onTap: () {
+                          ref.watch(languageProvider) == 'pt_BR'
+                              ? ref.read(languageProvider.notifier).state =
+                                  'en_US'
+                              : ref.read(languageProvider.notifier).state =
+                                  'pt_BR';
+                        },
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                    ],
                   ),
                   Spacer(),
-                  InkWell(
-                    child: Image.asset(
-                      'images/logo2.png',
-                      color: Colors.white,
-                      height: 50,
-                    ),
-                    onTap: () {
-                      
-                    },
-                  ),
+                  
                   PopupMenuButton(
                     icon: Icon(
                       Icons.menu_sharp,
@@ -126,12 +135,22 @@ class MainDashBoard extends ConsumerWidget {
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Image.asset(
-                    'images/logo2.png',
-                    color: Colors.white,
-                    height: 50,
+                  InkWell(
+                    child: Image.asset(
+                      ref.watch(languageProvider) == 'pt_BR'
+                          ? 'images/en_US.png'
+                          : 'images/pt_BR.png',
+                      color: Colors.white,
+                      height: 30,
+                    ),
+                    onTap: () {
+                      ref.watch(languageProvider) == 'pt_BR'
+                          ? ref.read(languageProvider.notifier).state = 'en_US'
+                          : ref.read(languageProvider.notifier).state = 'pt_BR';
+                    },
                   ),
                   const Spacer(),
+                  
                   SizedBox(
                     height: 30,
                     child: ListView.separated(
@@ -195,21 +214,21 @@ class MainDashBoard extends ConsumerWidget {
     List menuItems = ref.watch(languageProvider) == 'en_US'
         ? <String>[
             'Home',
-            'About',
             'Skills',
             'Portfolio',
+            'About Me',
             'Contact',
           ]
         : <String>[
             'Início',
+            'Qualificações',
+            'Portfólio',
             'Sobre Mim',
-            'Habilidades',
-            'Portifólio',
             'Contato',
           ];
     return AnimatedContainer(
       alignment: Alignment.center,
-      width: 100,
+      width: 120,
       duration: const Duration(milliseconds: 200),
       transform: hover ? onMenuHover : null,
       child: Text(

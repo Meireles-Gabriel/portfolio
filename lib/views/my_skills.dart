@@ -9,15 +9,15 @@ import 'package:my_portfolio/helper%20class/helper_class.dart';
 import '../globals/app_text_styles.dart';
 
 // ignore: must_be_immutable
-class MyServices extends ConsumerWidget {
-  MyServices({super.key});
+class MySkills extends ConsumerWidget {
+  MySkills({super.key});
 
   final onHoverActive = Matrix4.identity()..translate(0, -10, 0);
   final onHoverRemove = Matrix4.identity()..translate(0, 0, 0);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.sizeOf(context);
     return HelperClass(
       mobile: Column(
         // mainAxisSize: MainAxisSize.min,
@@ -193,7 +193,9 @@ class MyServices extends ConsumerWidget {
                       : 'Base de Dados Robusta',
                   asset: AppAssets.analyst,
                   info:
-                      '''with MySQL and Firebase:\n\nCreating and managing robust database solutions, using MySQL for systems with high transaction volumes and Firebase for applications requiring real-time data synchronization and automatic scalability.''',
+                      ref.watch(languageProvider) ==
+                      'en_US'
+                          ? '''with MySQL and Firebase:\n\nCreating and managing robust database solutions, using MySQL for systems with high transaction volumes and Firebase for applications requiring real-time data synchronization and automatic scalability.''' : '''com MySQL e Firebase:\n\nCriação e gestão de soluções de banco de dados robustas, utilizando MySQL para sistemas com grande volume de transações e Firebase para aplicações que requerem sincronização de dados em tempo real e escalabilidade automática.''',
                   hover: ref.watch(isDataAnalystProvider),
                 ),
               )
@@ -202,7 +204,7 @@ class MyServices extends ConsumerWidget {
         ],
       ),
       paddingWidth: size.width * 0.04,
-      bgColor: AppColors.bgColor,
+      bgColor: AppColors.bgColor2,
     );
   }
 
@@ -218,7 +220,7 @@ class MyServices extends ConsumerWidget {
           children: [
             TextSpan(
               text: ref.watch(languageProvider) == 'en_US'
-              ? 'Skills' : 'Habilidades',
+              ? 'Skills' : 'Qualificações',
               style: AppTextStyles.montserratStyle(
                   fontSize: 30.0, color: Colors.grey),
             )
@@ -244,7 +246,7 @@ class MyServices extends ConsumerWidget {
       transform: hover ? onHoverActive : onHoverRemove,
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 24),
       decoration: BoxDecoration(
-        color: AppColors.bgColor2,
+        color: AppColors.bgColor,
         borderRadius: BorderRadius.circular(30),
         border:
             hover ? Border.all(color: AppColors.themeColor, width: 3) : null,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_portfolio/globals/app_assets.dart';
 import 'package:my_portfolio/helper%20class/helper_class.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../globals/app_colors.dart';
 import '../globals/app_text_styles.dart';
 import '../globals/constants.dart';
@@ -11,20 +12,14 @@ import '../globals/constants.dart';
 class MyPortfolio extends ConsumerWidget {
   MyPortfolio({super.key});
 
-
-
-
   final onH0verEffect = Matrix4.identity()..scale(1.0);
-
-  
 
   // ignore: prefer_typing_uninitialized_variables
   var hoveredIndex;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    
-    final Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.sizeOf(context);
     return HelperClass(
       mobile: Column(
         mainAxisSize: MainAxisSize.min,
@@ -51,33 +46,37 @@ class MyPortfolio extends ConsumerWidget {
         ],
       ),
       paddingWidth: size.width * 0.1,
-      bgColor: AppColors.bgColor2,
+      bgColor: AppColors.bgColor,
     );
   }
 
-  GridView buildProjectGridView({required int crossAxisCount, required WidgetRef ref}) {
+  GridView buildProjectGridView(
+      {required int crossAxisCount, required WidgetRef ref}) {
     List projectsNames = <String>[
-      ref.watch(languageProvider) == 'en_US'
-          ? 'Python Automation'
-          : 'Automação Python',
-      ref.watch(languageProvider) == 'en_US'
-          ? 'API Search' : 'Solicitação API',
-      ref.watch(languageProvider) == 'en_US'
-          ? 'Landing Page' : 'Landing Page',
+      ref.watch(languageProvider) == 'en_US' ? 'AutoTrade' : 'AutoTrade',
+      ref.watch(languageProvider) == 'en_US' ? 'FideLit' : 'FideLit',
     ];
 
     List projectsDescriptions = <String>[
       ref.watch(languageProvider) == 'en_US'
-          ? 'Project 3' : 'Projeto 3',
-      ref.watch(languageProvider) == 'en_US' ? 'Project 2' : 'Projeto 2',
-      ref.watch(languageProvider) == 'en_US' ? 'Project 1' : 'Projeto 1',
+          ? 'Automation system that executes Binary Options signals sent by professional traders on Telegram. It also integrates with ChatGPT to analyze the chart and generate its own signals. I used Flutter for the front-end and Python for the back-end, with libraries including Flask, Selenium, Pillow, Telethon, OpenAI, among others.'
+          : 'Sistema de automação que executa sinais de Opções Binárias enviados por traders profissionais no Telegram. Também possui uma integração com o CHATGPT para analisar o gráfico e gerar seus próprios sinais. Utilizei Flutter para o front-end e Python no back-end, com as bibliotecas Flask, Selenium, Pillow, Telethon, OpenAI, entre outras.',
+      ref.watch(languageProvider) ==
+              'Barbershop management application. In addition to scheduling appointments, it also includes customer registration and a points/rewards system similar to a loyalty program. I used Flutter for the front-end and Firebase for the database, storing scheduled appointments, customer information, and service history.'
+          ? 'Project 1'
+          : 'Aplicativo para gerenciamento de uma barbearia. Além do agendamento de horários, também possui cadastro de clientes e um sistema de pontuação/recompensa no estilo programa de fidelidade. Utilizei Flutter para o front-end e Firebase para a base de dados, armazenando os horários agendados, informações dos clientes e histórico de atendimento.',
     ];
 
     List images = <String>[
-      AppAssets.work2,
-      AppAssets.work1,
-      AppAssets.work2,
+      AppAssets.autotrade,
+      AppAssets.fidelit,
     ];
+
+    List links = <String>[
+      'https://www.upwork.com/freelancers/~0149a9148ca3ef3387?p=1774078610146238464',
+      'https://www.upwork.com/freelancers/~0149a9148ca3ef3387?p=1774077277750841344'
+    ];
+
     return GridView.builder(
       itemCount: images.length,
       shrinkWrap: true,
@@ -93,15 +92,20 @@ class MyPortfolio extends ConsumerWidget {
         return FadeInUpBig(
           duration: const Duration(milliseconds: 1600),
           child: InkWell(
-            onTap: () {},
+            onTap: () async {
+              String url = links[index];
+              if (await canLaunchUrl(Uri.parse(url))) {
+                await launchUrl(Uri.parse(url));
+              } else {
+                throw 'Could not launch $url';
+              }
+            },
             onHover: (value) {
-
-                if (value) {
-                  ref.read(hoveredIndexProvider.notifier).state = index;
-                } else {
-                  ref.read(hoveredIndexProvider.notifier).state = null;
-                }
-
+              if (value) {
+                ref.read(hoveredIndexProvider.notifier).state = index;
+              } else {
+                ref.read(hoveredIndexProvider.notifier).state = null;
+              }
             },
             child: Stack(
               alignment: Alignment.center,
@@ -115,10 +119,11 @@ class MyPortfolio extends ConsumerWidget {
                 ),
                 Visibility(
                   visible: index == ref.watch(hoveredIndexProvider),
-                  
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 600),
-                    transform: index == ref.watch(hoveredIndexProvider) ? onH0verEffect : null,
+                    transform: index == ref.watch(hoveredIndexProvider)
+                        ? onH0verEffect
+                        : null,
                     curve: Curves.easeIn,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 14, vertical: 16),
@@ -144,24 +149,19 @@ class MyPortfolio extends ConsumerWidget {
                               style: AppTextStyles.montserratStyle(
                                   color: Colors.black87, fontSize: 20),
                             ),
-                            Constants.sizedBox(height: 15.0),
-                            Text(
-                              projectsDescriptions[index],
-                              style:
-                                  AppTextStyles.normalStyle(color: Colors.black87),
-                              textAlign: TextAlign.center,
-                            ),
-                            Constants.sizedBox(height: 30.0),
-                            CircleAvatar(
-                              maxRadius: 25,
-                              backgroundColor: Colors.white,
-                              child: Image.asset(
-                                AppAssets.share,
-                                width: 25,
-                                height: 25,
-                                fit: BoxFit.fill,
+                            Constants.sizedBox(height: 12.0),
+                            SizedBox(
+                              width: 380,
+                              child: Text(
+                                projectsDescriptions[index],
+                                style: AppTextStyles.normalStyle(
+                                        color: Colors.black87)
+                                    .copyWith(fontSize: 14),
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 10,
                               ),
-                            )
+                            ),
                           ],
                         ),
                         Spacer()
@@ -182,15 +182,14 @@ class MyPortfolio extends ConsumerWidget {
       duration: const Duration(milliseconds: 1200),
       child: RichText(
         text: TextSpan(
-          text: ref.watch(languageProvider) == 'en_US'
-              ? 
-          'Latest ' : 'Últimos ',
+          text: ref.watch(languageProvider) == 'en_US' ? 'Latest ' : 'Últimos ',
           style: AppTextStyles.montserratStyle(
               fontSize: 30.0, color: Colors.white),
           children: [
             TextSpan(
               text: ref.watch(languageProvider) == 'en_US'
-              ? 'Projects' : 'Projetos',
+                  ? 'Projects'
+                  : 'Projetos',
               style: AppTextStyles.montserratStyle(
                   fontSize: 30, color: Colors.grey),
             )

@@ -18,7 +18,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.sizeOf(context);
     return HelperClass(
       mobile: Column(
         children: [
@@ -54,14 +54,12 @@ class HomePage extends ConsumerWidget {
       AppAssets.zap,
       AppAssets.linkedIn,
       AppAssets.github,
-      AppAssets.insta,
     ];
     final socialLinks = <String>[
       'https://mail.google.com/mail/?view=cm&fs=1&to=contato.gabrielmeireles@gmail.com',
       'https://wa.me/5535999631097',
-      AppAssets.linkedIn,
-      AppAssets.github,
-      AppAssets.insta,
+      'https://www.linkedin.com/in/developer-gabriel-meireles/',
+      'https://github.com/Meireles-Gabriel',
     ];
     int? socialBI;
     return Column(
@@ -100,16 +98,6 @@ class HomePage extends ConsumerWidget {
               AnimatedTextKit(
                 animatedTexts: [
                   TyperAnimatedText(
-                    'Flutter Developer',
-                    textStyle:
-                        AppTextStyles.montserratStyle(color: Colors.grey),
-                  ),
-                  TyperAnimatedText(
-                    'Python Developer',
-                    textStyle:
-                        AppTextStyles.montserratStyle(color: Colors.grey),
-                  ),
-                  TyperAnimatedText(
                     'Mobile Developer',
                     textStyle:
                         AppTextStyles.montserratStyle(color: Colors.grey),
@@ -126,6 +114,16 @@ class HomePage extends ConsumerWidget {
                   ),
                   TyperAnimatedText(
                     'Game Developer',
+                    textStyle:
+                        AppTextStyles.montserratStyle(color: Colors.grey),
+                  ),
+                  TyperAnimatedText(
+                    'Python Developer',
+                    textStyle:
+                        AppTextStyles.montserratStyle(color: Colors.grey),
+                  ),
+                  TyperAnimatedText(
+                    'Flutter Developer',
                     textStyle:
                         AppTextStyles.montserratStyle(color: Colors.grey),
                   ),
@@ -176,7 +174,7 @@ class HomePage extends ConsumerWidget {
                   child: buildSocialButton(
                       asset: socialButtons[index],
                       hover: socialBI == index ? true : false,
-                      link: socialLinks[0]),
+                      link: socialLinks[index]),
                 );
               },
             ),
