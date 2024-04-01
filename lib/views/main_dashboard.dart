@@ -78,8 +78,8 @@ class MainDashBoard extends ConsumerWidget {
                       InkWell(
                         child: Image.asset(
                           ref.watch(languageProvider) == 'pt_BR'
-                              ? 'images/en_US.png'
-                              : 'images/pt_BR.png',
+                              ? 'assets/en_US.png'
+                              : 'assets/pt_BR.png',
                           color: Colors.white,
                           height: 30,
                         ),
@@ -138,8 +138,8 @@ class MainDashBoard extends ConsumerWidget {
                   InkWell(
                     child: Image.asset(
                       ref.watch(languageProvider) == 'pt_BR'
-                          ? 'images/en_US.png'
-                          : 'images/pt_BR.png',
+                          ? 'assets/en_US.png'
+                          : 'assets/pt_BR.png',
                       color: Colors.white,
                       height: 30,
                     ),

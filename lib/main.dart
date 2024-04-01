@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
     final PageStorageBucket bucket = PageStorageBucket();
     return ProviderScope(
       child: MaterialApp(
-        title: 'Gabriel Meireles\'s Portfolio',
+        title: 'Gabriel Meireles',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.grey,

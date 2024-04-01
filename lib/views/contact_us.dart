@@ -27,7 +27,9 @@ class ContactUs extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           buildContactText(ref),
-          Constants.sizedBox(height: 40.0),
+           Constants.sizedBox(height: 40.0),
+          buildHomePersonalInfo(MediaQuery.of(context).size, ref),
+          Constants.sizedBox(height: 20.0),
           Material(
             borderRadius: BorderRadius.circular(10),
             color: Colors.transparent,
@@ -307,11 +309,7 @@ class ContactUs extends ConsumerWidget {
       child: InkWell(
         onTap: () async {
           String url = link;
-          if (await canLaunchUrl(Uri.parse(url))) {
             await launchUrl(Uri.parse(url));
-          } else {
-            throw 'Could not launch $url';
-          }
         },
         child: Image.asset(
           asset,

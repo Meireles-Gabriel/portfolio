@@ -27,12 +27,11 @@ class HomePage extends ConsumerWidget {
           Constants.sizedBox(height: 25.0),
         ],
       ),
-      tablet: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
+      tablet: Column(
         children: [
-          Expanded(child: buildHomePersonalInfo(size, ref)),
           const ProfileAnimation(),
+          buildHomePersonalInfo(size, ref),
+          Constants.sizedBox(height: 25.0),
         ],
       ),
       desktop: Row(
@@ -138,13 +137,11 @@ class HomePage extends ConsumerWidget {
         Constants.sizedBox(height: 15.0),
         FadeInDown(
           duration: const Duration(milliseconds: 1600),
-          child: Expanded(
-            child: Text(
-              ref.watch(languageProvider) == 'en_US'
-                  ? 'Thoughtfully developed projects that reflect my commitment in every line of code. Together, let\'s build solid and innovative solutions!'
-                  : 'Projetos cuidadosamente desenvolvidos que refletem meu comprometimento em cada linha de código. Juntos, vamos construir soluções sólidas e inovadoras!',
-              style: AppTextStyles.normalStyle(),
-            ),
+          child: Text(
+            ref.watch(languageProvider) == 'en_US'
+                ? 'Thoughtfully developed projects that reflect my commitment in every line of code. Together, let\'s build solid and innovative solutions!'
+                : 'Projetos cuidadosamente desenvolvidos que refletem meu comprometimento em cada linha de código. Juntos, vamos construir soluções sólidas e inovadoras!',
+            style: AppTextStyles.normalStyle(),
           ),
         ),
         Constants.sizedBox(height: 22.0),
@@ -169,7 +166,7 @@ class HomePage extends ConsumerWidget {
                     }
                   },
                   borderRadius: BorderRadius.circular(550.0),
-                  hoverColor: AppColors.themeColor,
+                  hoverColor: AppColors.themeColorOpaque,
                   splashColor: AppColors.lawGreen,
                   child: buildSocialButton(
                       asset: socialButtons[index],
@@ -189,20 +186,15 @@ class HomePage extends ConsumerWidget {
     return Ink(
       width: 45,
       height: 45,
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.themeColor, width: 2.0),
-        color: AppColors.bgColor,
-        shape: BoxShape.circle,
-      ),
+      // decoration:BoxDecoration(
+      //   border: Border.all(color: AppColors.themeColor, width: 2.0),
+      //   color: AppColors.bgColor,
+      //   shape: BoxShape.circle,
+      // ),
       padding: const EdgeInsets.all(6),
       child: InkWell(
         onTap: () async {
-          String url = link;
-          if (await canLaunchUrl(Uri.parse(url))) {
-            await launchUrl(Uri.parse(url));
-          } else {
-            throw 'Could not launch $url';
-          }
+          await launchUrl(Uri.parse(link));
         },
         child: Image.asset(
           asset,

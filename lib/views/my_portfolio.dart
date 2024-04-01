@@ -61,9 +61,10 @@ class MyPortfolio extends ConsumerWidget {
       ref.watch(languageProvider) == 'en_US'
           ? 'Automation system that executes Binary Options signals sent by professional traders on Telegram. It also integrates with ChatGPT to analyze the chart and generate its own signals. I used Flutter for the front-end and Python for the back-end, with libraries including Flask, Selenium, Pillow, Telethon, OpenAI, among others.'
           : 'Sistema de automação que executa sinais de Opções Binárias enviados por traders profissionais no Telegram. Também possui uma integração com o CHATGPT para analisar o gráfico e gerar seus próprios sinais. Utilizei Flutter para o front-end e Python no back-end, com as bibliotecas Flask, Selenium, Pillow, Telethon, OpenAI, entre outras.',
-      ref.watch(languageProvider) ==
+      ref.watch(languageProvider) == 'en_US'
+          ? 
               'Barbershop management application. In addition to scheduling appointments, it also includes customer registration and a points/rewards system similar to a loyalty program. I used Flutter for the front-end and Firebase for the database, storing scheduled appointments, customer information, and service history.'
-          ? 'Project 1'
+
           : 'Aplicativo para gerenciamento de uma barbearia. Além do agendamento de horários, também possui cadastro de clientes e um sistema de pontuação/recompensa no estilo programa de fidelidade. Utilizei Flutter para o front-end e Firebase para a base de dados, armazenando os horários agendados, informações dos clientes e histórico de atendimento.',
     ];
 
@@ -134,7 +135,7 @@ class MyPortfolio extends ConsumerWidget {
                             AppColors.themeColor.withOpacity(1.0),
                             AppColors.themeColor.withOpacity(0.9),
                             AppColors.themeColor.withOpacity(0.8),
-                            AppColors.themeColor.withOpacity(0.6),
+                            AppColors.themeColor.withOpacity(0.7),
                           ],
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter),
@@ -155,8 +156,8 @@ class MyPortfolio extends ConsumerWidget {
                               child: Text(
                                 projectsDescriptions[index],
                                 style: AppTextStyles.normalStyle(
-                                        color: Colors.black87)
-                                    .copyWith(fontSize: 14),
+                                        color: const Color.fromARGB(221, 8, 7, 7))
+                                    .copyWith(fontSize: 14, fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 10,
