@@ -49,16 +49,16 @@ class HomePage extends ConsumerWidget {
 
   Column buildHomePersonalInfo(Size size, WidgetRef ref) {
     final socialButtons = <String>[
-      AppAssets.gmail,
       AppAssets.zap,
       AppAssets.linkedIn,
       AppAssets.github,
+      AppAssets.gmail,
     ];
     final socialLinks = <String>[
-      'https://mail.google.com/mail/?view=cm&fs=1&to=contato.gabrielmeireles@gmail.com',
       'https://wa.me/5535999631097',
       'https://www.linkedin.com/in/developer-gabriel-meireles/',
       'https://github.com/Meireles-Gabriel',
+      'https://mail.google.com/mail/?view=cm&fs=1&to=contato.gabrielmeireles@gmail.com',
     ];
     int? socialBI;
     return Column(
@@ -92,39 +92,40 @@ class HomePage extends ConsumerWidget {
                 ref.watch(languageProvider) == 'en_US'
                     ? 'And I\'m a '
                     : 'E eu sou um ',
-                style: AppTextStyles.montserratStyle(color: Colors.white),
+                style: AppTextStyles.montserratStyle(color: Colors.white)
+                    .copyWith(fontSize: 20),
               ),
               AnimatedTextKit(
                 animatedTexts: [
                   TyperAnimatedText(
                     'Mobile Developer',
-                    textStyle:
-                        AppTextStyles.montserratStyle(color: Colors.grey),
+                    textStyle: AppTextStyles.montserratStyle(color: Colors.grey)
+                        .copyWith(fontSize: 20),
                   ),
                   TyperAnimatedText(
                     'Web Developer',
-                    textStyle:
-                        AppTextStyles.montserratStyle(color: Colors.grey),
+                    textStyle: AppTextStyles.montserratStyle(color: Colors.grey)
+                        .copyWith(fontSize: 20),
                   ),
                   TyperAnimatedText(
                     'Desktop Developer',
-                    textStyle:
-                        AppTextStyles.montserratStyle(color: Colors.grey),
+                    textStyle: AppTextStyles.montserratStyle(color: Colors.grey)
+                        .copyWith(fontSize: 20),
                   ),
                   TyperAnimatedText(
                     'Game Developer',
-                    textStyle:
-                        AppTextStyles.montserratStyle(color: Colors.grey),
+                    textStyle: AppTextStyles.montserratStyle(color: Colors.grey)
+                        .copyWith(fontSize: 20),
                   ),
                   TyperAnimatedText(
                     'Python Developer',
-                    textStyle:
-                        AppTextStyles.montserratStyle(color: Colors.grey),
+                    textStyle: AppTextStyles.montserratStyle(color: Colors.grey)
+                        .copyWith(fontSize: 20),
                   ),
                   TyperAnimatedText(
                     'Flutter Developer',
-                    textStyle:
-                        AppTextStyles.montserratStyle(color: Colors.grey),
+                    textStyle: AppTextStyles.montserratStyle(color: Colors.grey)
+                        .copyWith(fontSize: 20),
                   ),
                 ],
                 pause: const Duration(milliseconds: 1000),

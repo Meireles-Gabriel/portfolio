@@ -40,8 +40,8 @@ class _ProfileAnimationState extends State<ProfileAnimation>
         children: [
           Image.asset(
             AppAssets.profile1,
-            width: 340,
-            height: 450,
+            width: 300,
+            height: 400,
             fit: BoxFit.fill,
           ),
           SizedBox(height: 10),

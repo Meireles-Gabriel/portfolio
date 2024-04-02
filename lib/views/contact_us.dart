@@ -27,8 +27,11 @@ class ContactUs extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           buildContactText(ref),
-           Constants.sizedBox(height: 40.0),
+          Constants.sizedBox(height: 40.0),
           buildHomePersonalInfo(MediaQuery.of(context).size, ref),
+          Constants.sizedBox(height: 5),
+          Text('contato.gabrielmeireles@gmail.com',
+              style: AppTextStyles.normalStyle()),
           Constants.sizedBox(height: 20.0),
           Material(
             borderRadius: BorderRadius.circular(10),
@@ -37,13 +40,12 @@ class ContactUs extends ConsumerWidget {
             child: TextField(
               controller: nameController,
               cursorColor: AppColors.white,
-              style: AppTextStyles.montserratStyle(
-                color: Colors.white,
-              ).copyWith(fontWeight: FontWeight.w100),
+              style: AppTextStyles.normalStyle(color: Colors.white)
+                  .copyWith(fontSize: 18),
               decoration: buildInputDecoration(
                   hintText: ref.watch(languageProvider) == 'en_US'
-                      ? 'Full Name'
-                      : 'Nome Completo'),
+                      ? 'Name'
+                      : 'Nome'),
             ),
           ),
           Constants.sizedBox(height: 20.0),
@@ -54,8 +56,8 @@ class ContactUs extends ConsumerWidget {
             child: TextField(
               controller: emailController,
               cursorColor: AppColors.white,
-              style: AppTextStyles.montserratStyle(color: Colors.white)
-                  .copyWith(fontWeight: FontWeight.w100),
+              style: AppTextStyles.normalStyle(color: Colors.white)
+                  .copyWith(fontSize: 18),
               decoration: buildInputDecoration(hintText: 'Email'),
             ),
           ),
@@ -67,12 +69,12 @@ class ContactUs extends ConsumerWidget {
             child: TextField(
               controller: numberController,
               cursorColor: AppColors.white,
-              style: AppTextStyles.montserratStyle(color: Colors.white)
-                  .copyWith(fontWeight: FontWeight.w100),
+              style: AppTextStyles.normalStyle(color: Colors.white)
+                  .copyWith(fontSize: 18),
               decoration: buildInputDecoration(
                   hintText: ref.watch(languageProvider) == 'en_US'
-                      ? 'Mobile Number'
-                      : 'Número de celular'),
+                      ? 'Phone Number'
+                      : 'Número de telefone'),
             ),
           ),
           Constants.sizedBox(height: 20.0),
@@ -83,8 +85,8 @@ class ContactUs extends ConsumerWidget {
             child: TextField(
               controller: subjectController,
               cursorColor: AppColors.white,
-              style: AppTextStyles.montserratStyle(color: Colors.white)
-                  .copyWith(fontWeight: FontWeight.w100),
+              style: AppTextStyles.normalStyle(color: Colors.white)
+                  .copyWith(fontSize: 18),
               decoration: buildInputDecoration(
                   hintText: ref.watch(languageProvider) == 'en_US'
                       ? 'Subject'
@@ -98,10 +100,10 @@ class ContactUs extends ConsumerWidget {
             elevation: 8,
             child: TextField(
               controller: messageController,
-              maxLines: 15,
+              maxLines: null,
               cursorColor: AppColors.white,
-              style: AppTextStyles.montserratStyle(color: Colors.white)
-                  .copyWith(fontWeight: FontWeight.w100),
+              style: AppTextStyles.normalStyle(color: Colors.white)
+                  .copyWith(fontSize: 18),
               decoration: buildInputDecoration(
                   hintText: ref.watch(languageProvider) == 'en_US'
                       ? 'Your Message'
@@ -113,7 +115,33 @@ class ContactUs extends ConsumerWidget {
               buttonName: ref.watch(languageProvider) == 'en_US'
                   ? 'Send Message'
                   : 'Enviar Mensagem',
-              onTap: () {}),
+              onTap: () async {
+                if (subjectController.text != '' &&
+                    numberController.text != '' &&
+                    messageController.text != '' &&
+                    emailController.text != '' &&
+                    nameController.text != '') {
+                  String url =
+                      '''https://mail.google.com/mail/?view=cm&fs=1&to=contato.gabrielmeireles@gmail.com&su=${subjectController.text.replaceAll(' ', '%20')}&body=${nameController.text.replaceAll(' ', '%20')}%0A${emailController.text.replaceAll(' ', '%20')}%0A${numberController.text.replaceAll(' ', '%20')}%0A%0A${messageController.text.replaceAll(' ', '%20')}''';
+                  await launchUrl(Uri.parse(url));
+                  nameController.text = '';
+                  emailController.text = '';
+                  numberController.text = '';
+                  subjectController.text = '';
+                  messageController.text = '';
+                  ref.read(sendConfirmationProvider.notifier).state = '';
+                } else {
+                  ref.read(sendConfirmationProvider.notifier).state =
+                      ref.watch(languageProvider) == 'en_US'
+                          ? 'Fill in all entry fields!'
+                          : 'Preencha todos os campos!';
+                }
+              }),
+          Constants.sizedBox(height: 10),
+          Text(
+            ref.watch(sendConfirmationProvider),
+            style: AppTextStyles.normalStyle(),
+          ),
           Constants.sizedBox(height: 30.0),
         ],
       ),
@@ -132,6 +160,9 @@ class ContactUs extends ConsumerWidget {
         buildContactText(ref),
         Constants.sizedBox(height: 40.0),
         buildHomePersonalInfo(MediaQuery.of(context).size, ref),
+        Constants.sizedBox(height: 5),
+        Text('contato.gabrielmeireles@gmail.com',
+            style: AppTextStyles.normalStyle()),
         Constants.sizedBox(height: 20.0),
         Row(
           children: [
@@ -143,12 +174,12 @@ class ContactUs extends ConsumerWidget {
                 child: TextField(
                   controller: nameController,
                   cursorColor: AppColors.white,
-                  style: AppTextStyles.montserratStyle(color: Colors.white)
-                      .copyWith(fontWeight: FontWeight.w100),
+                  style: AppTextStyles.normalStyle(color: Colors.white)
+                      .copyWith(fontSize: 18),
                   decoration: buildInputDecoration(
                       hintText: ref.watch(languageProvider) == 'en_US'
-                          ? 'Full Name'
-                          : 'Nome Completo'),
+                          ? 'Name'
+                          : 'Nome'),
                 ),
               ),
             ),
@@ -161,8 +192,8 @@ class ContactUs extends ConsumerWidget {
                 child: TextField(
                   controller: emailController,
                   cursorColor: AppColors.white,
-                  style: AppTextStyles.montserratStyle(color: Colors.white)
-                      .copyWith(fontWeight: FontWeight.w100),
+                  style: AppTextStyles.normalStyle(color: Colors.white)
+                      .copyWith(fontSize: 18),
                   decoration: buildInputDecoration(hintText: 'Email'),
                 ),
               ),
@@ -180,12 +211,12 @@ class ContactUs extends ConsumerWidget {
                 child: TextField(
                   controller: numberController,
                   cursorColor: AppColors.white,
-                  style: AppTextStyles.montserratStyle(color: Colors.white)
-                      .copyWith(fontWeight: FontWeight.w100),
+                  style: AppTextStyles.normalStyle(color: Colors.white)
+                      .copyWith(fontSize: 18),
                   decoration: buildInputDecoration(
                       hintText: ref.watch(languageProvider) == 'en_US'
-                          ? 'Mobile Number'
-                          : 'Número de celular'),
+                          ? 'Phone Number'
+                          : 'Número de telefone'),
                 ),
               ),
             ),
@@ -198,8 +229,8 @@ class ContactUs extends ConsumerWidget {
                 child: TextField(
                   controller: subjectController,
                   cursorColor: AppColors.white,
-                  style: AppTextStyles.montserratStyle(color: Colors.white)
-                      .copyWith(fontWeight: FontWeight.w100),
+                  style: AppTextStyles.normalStyle(color: Colors.white)
+                      .copyWith(fontSize: 18),
                   decoration: buildInputDecoration(
                       hintText: ref.watch(languageProvider) == 'en_US'
                           ? 'Subject'
@@ -216,10 +247,10 @@ class ContactUs extends ConsumerWidget {
           elevation: 8,
           child: TextField(
             controller: messageController,
-            maxLines: 15,
+            maxLines: null,
             cursorColor: AppColors.white,
-            style: AppTextStyles.montserratStyle(color: Colors.white)
-                .copyWith(fontWeight: FontWeight.w100),
+            style: AppTextStyles.normalStyle(color: Colors.white)
+                .copyWith(fontSize: 18),
             decoration: buildInputDecoration(
                 hintText: ref.watch(languageProvider) == 'en_US'
                     ? 'Your Message'
@@ -232,7 +263,11 @@ class ContactUs extends ConsumerWidget {
                 ? 'Send Message'
                 : 'Enviar Mensagem',
             onTap: () async {
-              if (messageController.text != '') {
+              if (subjectController.text != '' &&
+                  numberController.text != '' &&
+                  messageController.text != '' &&
+                  emailController.text != '' &&
+                  nameController.text != '') {
                 String url =
                     '''https://mail.google.com/mail/?view=cm&fs=1&to=contato.gabrielmeireles@gmail.com&su=${subjectController.text.replaceAll(' ', '%20')}&body=${nameController.text.replaceAll(' ', '%20')}%0A${emailController.text.replaceAll(' ', '%20')}%0A${numberController.text.replaceAll(' ', '%20')}%0A%0A${messageController.text.replaceAll(' ', '%20')}''';
                 await launchUrl(Uri.parse(url));
@@ -241,8 +276,19 @@ class ContactUs extends ConsumerWidget {
                 numberController.text = '';
                 subjectController.text = '';
                 messageController.text = '';
+                ref.read(sendConfirmationProvider.notifier).state = '';
+              } else {
+                ref.read(sendConfirmationProvider.notifier).state =
+                    ref.watch(languageProvider) == 'en_US'
+                        ? 'Fill in all entry fields!'
+                        : 'Preencha todos os campos!';
               }
             }),
+        Constants.sizedBox(height: 10),
+        Text(
+          ref.watch(sendConfirmationProvider),
+          style: AppTextStyles.normalStyle(),
+        ),
         Constants.sizedBox(height: 30.0),
       ],
     );
@@ -250,13 +296,11 @@ class ContactUs extends ConsumerWidget {
 
   FadeInUp buildHomePersonalInfo(Size size, WidgetRef ref) {
     final socialButtons = <String>[
-      AppAssets.gmail,
       AppAssets.zap,
       AppAssets.linkedIn,
       AppAssets.github,
     ];
     final socialLinks = <String>[
-      'https://mail.google.com/mail/?view=cm&fs=1&to=contato.gabrielmeireles@gmail.com',
       'https://wa.me/5535999631097',
       'https://www.linkedin.com/in/developer-gabriel-meireles/',
       'https://github.com/Meireles-Gabriel',
@@ -309,7 +353,7 @@ class ContactUs extends ConsumerWidget {
       child: InkWell(
         onTap: () async {
           String url = link;
-            await launchUrl(Uri.parse(url));
+          await launchUrl(Uri.parse(url));
         },
         child: Image.asset(
           asset,
@@ -345,8 +389,8 @@ class ContactUs extends ConsumerWidget {
 
   InputDecoration buildInputDecoration({required String hintText}) {
     return InputDecoration(
-        hintText: hintText,
-        hintStyle: AppTextStyles.comfortaaStyle(),
+        labelText: hintText,
+        labelStyle: AppTextStyles.comfortaaStyle(),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none),

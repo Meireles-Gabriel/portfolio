@@ -95,11 +95,7 @@ class MyPortfolio extends ConsumerWidget {
           child: InkWell(
             onTap: () async {
               String url = links[index];
-              if (await canLaunchUrl(Uri.parse(url))) {
                 await launchUrl(Uri.parse(url));
-              } else {
-                throw 'Could not launch $url';
-              }
             },
             onHover: (value) {
               if (value) {
@@ -152,12 +148,12 @@ class MyPortfolio extends ConsumerWidget {
                             ),
                             Constants.sizedBox(height: 12.0),
                             SizedBox(
-                              width: 380,
+                              width: 320,
                               child: Text(
                                 projectsDescriptions[index],
                                 style: AppTextStyles.normalStyle(
                                         color: const Color.fromARGB(221, 8, 7, 7))
-                                    .copyWith(fontSize: 14, fontWeight: FontWeight.bold),
+                                    .copyWith(fontSize: 12, fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 10,
