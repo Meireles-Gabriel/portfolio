@@ -53,11 +53,13 @@ class MyPortfolio extends ConsumerWidget {
   GridView buildProjectGridView(
       {required int crossAxisCount, required WidgetRef ref}) {
     List projectsNames = <String>[
+      ref.watch(languageProvider) == 'en_US' ? 'GreenGrow' : 'GreenGrow',
       ref.watch(languageProvider) == 'en_US' ? 'AutoTrade' : 'AutoTrade',
       ref.watch(languageProvider) == 'en_US' ? 'FideLit' : 'FideLit',
     ];
 
-    List projectsDescriptions = <String>[
+    List projectsDescriptions = <String>[ref.watch(languageProvider) == 'en_US'
+          ? 'A landing page for a fictitious company built entirely with Flutter and hosted on Firebase Hosting.' : 'Uma landing page para uma empresa fictícia feita totalmente com Flutter e hospedada no Firebase Hosting.',
       ref.watch(languageProvider) == 'en_US'
           ? 'Automation system that executes Binary Options signals sent by professional traders on Telegram. It also integrates with ChatGPT to analyze the chart and generate its own signals. I used Flutter for the front-end and Python for the back-end, with libraries including Flask, Selenium, Pillow, Telethon, OpenAI, among others.'
           : 'Sistema de automação que executa sinais de Opções Binárias enviados por traders profissionais no Telegram. Também possui uma integração com o CHATGPT para analisar o gráfico e gerar seus próprios sinais. Utilizei Flutter para o front-end e Python no back-end, com as bibliotecas Flask, Selenium, Pillow, Telethon, OpenAI, entre outras.',
@@ -69,11 +71,13 @@ class MyPortfolio extends ConsumerWidget {
     ];
 
     List images = <String>[
+      AppAssets.greengrow,
       AppAssets.autotrade,
       AppAssets.fidelit,
     ];
 
     List links = <String>[
+      'https://greengrow-landingpage.web.app/',
       'https://www.upwork.com/freelancers/~0149a9148ca3ef3387?p=1774078610146238464',
       'https://www.upwork.com/freelancers/~0149a9148ca3ef3387?p=1774077277750841344'
     ];

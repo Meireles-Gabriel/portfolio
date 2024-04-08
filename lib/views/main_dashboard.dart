@@ -33,7 +33,7 @@ class MainDashBoard extends ConsumerWidget {
     itemScrollController
         .scrollTo(
             index: index,
-            duration: const Duration(seconds: 2),
+            duration: const Duration(seconds: 1),
             curve: Curves.fastLinearToSlowEaseIn)
         .whenComplete(() {
       ref.read(menuIndexProvider.notifier).state = index;
