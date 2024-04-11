@@ -55,30 +55,38 @@ class MyPortfolio extends ConsumerWidget {
     List projectsNames = <String>[
       ref.watch(languageProvider) == 'en_US' ? 'GreenGrow' : 'GreenGrow',
       ref.watch(languageProvider) == 'en_US' ? 'AutoTrade' : 'AutoTrade',
+      ref.watch(languageProvider) == 'en_US'
+          ? 'LinkedIn Connections Bot'
+          : 'LinkedIn Connections Bot',
       ref.watch(languageProvider) == 'en_US' ? 'FideLit' : 'FideLit',
     ];
 
-    List projectsDescriptions = <String>[ref.watch(languageProvider) == 'en_US'
-          ? 'A landing page for a fictitious company built entirely with Flutter and hosted on Firebase Hosting.' : 'Uma landing page para uma empresa fictícia feita totalmente com Flutter e hospedada no Firebase Hosting.',
+    List projectsDescriptions = <String>[
+      ref.watch(languageProvider) == 'en_US'
+          ? 'A landing page for a fictitious company built entirely with Flutter and hosted on Firebase Hosting.'
+          : 'Uma landing page para uma empresa fictícia feita totalmente com Flutter e hospedada no Firebase Hosting.',
       ref.watch(languageProvider) == 'en_US'
           ? 'Automation system that executes Binary Options signals sent by professional traders on Telegram. It also integrates with ChatGPT to analyze the chart and generate its own signals. I used Flutter for the front-end and Python for the back-end, with libraries including Flask, Selenium, Pillow, Telethon, OpenAI, among others.'
           : 'Sistema de automação que executa sinais de Opções Binárias enviados por traders profissionais no Telegram. Também possui uma integração com o CHATGPT para analisar o gráfico e gerar seus próprios sinais. Utilizei Flutter para o front-end e Python no back-end, com as bibliotecas Flask, Selenium, Pillow, Telethon, OpenAI, entre outras.',
       ref.watch(languageProvider) == 'en_US'
-          ? 
-              'Barbershop management application. In addition to scheduling appointments, it also includes customer registration and a points/rewards system similar to a loyalty program. I used Flutter for the front-end and Firebase for the database, storing scheduled appointments, customer information, and service history.'
-
+          ? 'A bot that automates the process of searching for connections on LinkedIn. It searches for keywords to find people in a specific field and sends connection requests, including a predefined message. It uses Flutter for the front-end and Python for the back-end.'
+          : 'Um bot que automatiza o processo de buscar conexões no LinkedIn. Ele pesquisa por palavras chaves para encontrar pessoas de determinada área e envia as solicitações de conexão, incluindo uma mensagem pré definida. Usa Flutter para o front-end e Python para o back-end.',
+      ref.watch(languageProvider) == 'en_US'
+          ? 'Barbershop management application. In addition to scheduling appointments, it also includes customer registration and a points/rewards system similar to a loyalty program. I used Flutter for the front-end and Firebase for the database, storing scheduled appointments, customer information, and service history.'
           : 'Aplicativo para gerenciamento de uma barbearia. Além do agendamento de horários, também possui cadastro de clientes e um sistema de pontuação/recompensa no estilo programa de fidelidade. Utilizei Flutter para o front-end e Firebase para a base de dados, armazenando os horários agendados, informações dos clientes e histórico de atendimento.',
     ];
 
     List images = <String>[
       AppAssets.greengrow,
       AppAssets.autotrade,
+      AppAssets.linkedinbot,
       AppAssets.fidelit,
     ];
 
     List links = <String>[
       'https://greengrow-landingpage.web.app/',
       'https://www.upwork.com/freelancers/~0149a9148ca3ef3387?p=1774078610146238464',
+      'https://www.upwork.com/freelancers/~0149a9148ca3ef3387?p=1778460933468884992',
       'https://www.upwork.com/freelancers/~0149a9148ca3ef3387?p=1774077277750841344'
     ];
 
@@ -99,7 +107,7 @@ class MyPortfolio extends ConsumerWidget {
           child: InkWell(
             onTap: () async {
               String url = links[index];
-                await launchUrl(Uri.parse(url));
+              await launchUrl(Uri.parse(url));
             },
             onHover: (value) {
               if (value) {
@@ -156,8 +164,11 @@ class MyPortfolio extends ConsumerWidget {
                               child: Text(
                                 projectsDescriptions[index],
                                 style: AppTextStyles.normalStyle(
-                                        color: const Color.fromARGB(221, 8, 7, 7))
-                                    .copyWith(fontSize: 12, fontWeight: FontWeight.bold),
+                                        color:
+                                            const Color.fromARGB(221, 8, 7, 7))
+                                    .copyWith(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 10,

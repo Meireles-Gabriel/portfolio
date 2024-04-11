@@ -12,6 +12,7 @@ class AppAssets {
   static String brush = 'assets/brush-stroke.png';
   static String analyst = 'assets/analytics.png';
   static String fidelit = 'assets/fidelit.jpg';
+  static String linkedinbot = 'assets/linkedinbot.jpg';
   static String autotrade = 'assets/autotrade.jpg';
   static String greengrow = 'assets/greengrow.jpg';
   static String share = 'assets/share.png';
