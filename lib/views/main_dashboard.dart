@@ -64,6 +64,7 @@ class MainDashBoard extends ConsumerWidget {
       backgroundColor: AppColors.bgColor,
       appBar: AppBar(
         backgroundColor: AppColors.bgColor,
+        surfaceTintColor: Colors.transparent,
         toolbarHeight: 90,
         titleSpacing: 40,
         elevation: 0,
