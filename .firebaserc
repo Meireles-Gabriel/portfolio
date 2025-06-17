@@ -1,0 +1,24 @@
+{
+  "projects": {
+    "default": "gabrielmeireles-portfolio"
+  },
+  "targets": {
+    "gabrielmeireles-portfolio": {
+      "hosting": {
+        "gabrielmeireles": [
+          "gabrielmeireles"
+        ],
+        "portfolio-main": [
+          "gabrielmeireles-portfolio.web.app"
+        ],
+        "portfolio-alias": [
+          "gabrielmeireles.web.app"
+        ],
+        "gabrielmeireles-portfolio": [
+          "gabrielmeireles-portfolio"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

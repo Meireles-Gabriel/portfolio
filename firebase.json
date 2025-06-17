@@ -1,0 +1,46 @@
+{
+    "flutter": {
+        "platforms": {
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "gabrielmeireles-portfolio",
+                    "configurations": {
+                        "web": "1:927988727531:web:7abd5a1b422b1ac0f948ae"
+                    }
+                }
+            }
+        }
+    },
+    "hosting": [
+        {
+            "target": "gabrielmeireles-portfolio",
+            "public": "build/web",
+            "ignore": [
+                "firebase.json",
+                "**/.*",
+                "**/node_modules/**"
+            ],
+            "rewrites": [
+                {
+                    "source": "**",
+                    "destination": "/index.html"
+                }
+            ]
+        },
+        {
+            "target": "gabrielmeireles",
+            "public": "build/web",
+            "ignore": [
+                "firebase.json",
+                "**/.*",
+                "**/node_modules/**"
+            ],
+            "rewrites": [
+                {
+                    "source": "**",
+                    "destination": "/index.html"
+                }
+            ]
+        }
+    ]
+}
