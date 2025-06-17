@@ -47,9 +47,7 @@ class ProjectsSection extends ConsumerWidget {
           'Flutter',
           'Python',
           'AI',
-          'Flask',
           'Selenium',
-          'Telegram'
         ],
         'color': const Color(0xFFE17055),
       },
@@ -66,10 +64,12 @@ class ProjectsSection extends ConsumerWidget {
             duration: const Duration(milliseconds: 800),
             child: Text(
               AppLocalizations.translate('projects', locale),
+              textAlign: TextAlign.center,
               style: GoogleFonts.montserrat(
                 fontSize: size.width > 768 ? 36 : 28,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.primary,
+                
               ),
             ),
           ),
@@ -140,7 +140,7 @@ class _ProjectCardState extends State<ProjectCard> {
         child: InkWell(
           onTap: widget.url != '' ? () => launchUrl(Uri.parse(widget.url)) : null,
           child: Container(
-            height: size.width > 1200 ? 250 : (size.width > 768 ? 300 : 400),
+            height: size.width > 1200 ? 250 : (size.width > 768 ? 300 : 450),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(20),

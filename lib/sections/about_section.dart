@@ -130,8 +130,9 @@ class AboutSection extends ConsumerWidget {
                 const SizedBox(height: 32),
 
                 // Image on top for smaller screens
-                FadeInDown(
-                  duration: const Duration(milliseconds: 1000),
+                FadeInUp(
+                  duration: const Duration(milliseconds: 800),
+                  delay: const Duration(milliseconds: 200),
                   child: Container(
                     height: size.width * 0.5, // Responsive height
                     width: size.width * 0.5, // Responsive width

@@ -36,6 +36,7 @@ class _ContactSectionState extends ConsumerState<ContactSection> {
             duration: const Duration(milliseconds: 800),
             child: Text(
               AppLocalizations.translate('contact', locale),
+              textAlign: TextAlign.center,
               style: GoogleFonts.montserrat(
                 fontSize: size.width > 768 ? 36 : 28,
                 fontWeight: FontWeight.bold,

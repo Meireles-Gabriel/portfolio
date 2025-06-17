@@ -59,7 +59,7 @@ class QualificationsSection extends ConsumerWidget {
                 crossAxisCount: size.width > 768 ? 3 : 1,
                 crossAxisSpacing: 30,
                 mainAxisSpacing: 30,
-                childAspectRatio: size.width > 1200 ? 1.2 : (size.width > 768 ? 0.7 : 1.8),
+                childAspectRatio: size.width > 1200 ? 1.2 : (size.width > 768 ? 0.7 : 1.2),
               ),
               itemCount: qualifications.length,
               itemBuilder: (context, index) {
