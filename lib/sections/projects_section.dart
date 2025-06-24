@@ -69,7 +69,6 @@ class ProjectsSection extends ConsumerWidget {
                 fontSize: size.width > 768 ? 36 : 28,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.primary,
-                
               ),
             ),
           ),
@@ -131,6 +130,7 @@ class _ProjectCardState extends State<ProjectCard> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final bool isMobile = size.width <= 768;
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
@@ -138,9 +138,10 @@ class _ProjectCardState extends State<ProjectCard> {
         duration: const Duration(milliseconds: 300),
         transform: Matrix4.identity()..scale(_isHovered ? 1.02 : 1.0),
         child: InkWell(
-          onTap: widget.url != '' ? () => launchUrl(Uri.parse(widget.url)) : null,
+          onTap:
+              widget.url != '' ? () => launchUrl(Uri.parse(widget.url)) : null,
           child: Container(
-            height: size.width > 1200 ? 250 : (size.width > 768 ? 300 : 450),
+            height: size.width > 1200 ? 250 : (size.width > 768 ? 300 : 500),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(20),
@@ -154,48 +155,65 @@ class _ProjectCardState extends State<ProjectCard> {
                 ),
               ],
             ),
-            child: Row(
-              children: [
-                if (!widget.isReversed) ...[
-                  _buildProjectImage(),
-                  _buildProjectInfo(),
-                ] else ...[
-                  _buildProjectInfo(),
-                  _buildProjectImage(),
-                ],
-              ],
-            ),
+            child: isMobile
+                ? Column(
+                    children: [
+                      _buildProjectImage(isMobile: true),
+                      _buildProjectInfo(),
+                    ],
+                  )
+                : Row(
+                    children: [
+                      if (!widget.isReversed) ...[
+                        _buildProjectImage(),
+                        _buildProjectInfo(),
+                      ] else ...[
+                        _buildProjectInfo(),
+                        _buildProjectImage(),
+                      ],
+                    ],
+                  ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildProjectImage() {
+  Widget _buildProjectImage({bool isMobile = false}) {
     return Expanded(
-      flex: 2,
+      flex: isMobile ? 3 : 2,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: widget.isReversed
+          borderRadius: isMobile
               ? const BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                )
-              : const BorderRadius.only(
                   topLeft: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                ),
+                  topRight: Radius.circular(20),
+                )
+              : (widget.isReversed
+                  ? const BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    )
+                  : const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                    )),
         ),
         child: ClipRRect(
-          borderRadius: widget.isReversed
+          borderRadius: isMobile
               ? const BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                )
-              : const BorderRadius.only(
                   topLeft: Radius.circular(20),
-                  bottomLeft: Radius.circular(20),
-                ),
+                  topRight: Radius.circular(20),
+                )
+              : (widget.isReversed
+                  ? const BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    )
+                  : const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                    )),
           child: Image.asset(
             widget.image,
             fit: BoxFit.cover,

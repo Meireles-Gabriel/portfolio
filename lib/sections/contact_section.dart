@@ -81,6 +81,12 @@ class _ContactSectionState extends ConsumerState<ContactSection> {
                     onTap: () => launchUrl(
                         Uri.parse('https://www.youtube.com/@BaelMeireles')),
                   ),
+                  const SizedBox(width: 16),
+                  _buildSocialButton(
+                    icon: 'assets/images/tiktok.png',
+                    onTap: () => launchUrl(
+                        Uri.parse('https://www.tiktok.com/@bael.dev')),
+                  ),
                 ],
               ),
             ),
@@ -310,6 +316,12 @@ class _ContactSectionState extends ConsumerState<ContactSection> {
                 icon: 'assets/images/youtube.png',
                 onTap: () => launchUrl(
                     Uri.parse('https://www.youtube.com/@BaelMeireles')),
+              ),
+              const SizedBox(width: 16),
+              _buildSocialButton(
+                icon: 'assets/images/tiktok.png',
+                onTap: () =>
+                    launchUrl(Uri.parse('https://www.tiktok.com/@bael.dev')),
               ),
             ],
           ),
