@@ -21,7 +21,7 @@ class AppLocalizations {
       'qualification3_desc':
           'Aplicação prática de IA para agregar valor aos projetos por meio de automação inteligente, análise de dados e otimização de processos.',
       'about_text':
-          'Fascinado por tecnologia desde que me conheço por gente. Depois de me aprofundar na área com um curso técnico integrado ao ensino médio, me aventurei brevemente no mundo de desenvolvimento de jogos e, eventualmente, acabei por explorar várias áreas da programação. Com uma sólida experiência prática, acumulada em projetos desafiadores, trago uma bagagem repleta de aprendizados. Nestes desafios, fui constantemente impulsionado a inovar, aprimorar minhas habilidades de forma autodidata e, acima de tudo, a nutrir minha paixão pela tecnologia.',
+          'Fascinado por tecnologia desde que me conheço por gente. Depois de me aprofundar na área com um curso técnico integrado ao ensino médio, me aventurei brevemente no mundo de desenvolvimento de jogos e, eventualmente, acabei por explorar várias áreas da programação.\n\nCom uma sólida experiência prática, acumulada em projetos desafiadores, trago uma bagagem repleta de aprendizados. Nestes desafios, fui constantemente impulsionado a inovar, aprimorar minhas habilidades de forma autodidata e, acima de tudo, a nutrir minha paixão pela tecnologia.',
       'send_message': 'Enviar Mensagem',
       'name_field': 'Nome',
       'email_field': 'Email',
@@ -63,7 +63,7 @@ class AppLocalizations {
       'qualification3_desc':
           'Practical application of AI to add value to projects through intelligent automation, data analysis, and process optimization.',
       'about_text':
-          'Fascinated by technology since I can remember. After delving into the field with a technical course integrated into high school, I briefly ventured into game development and eventually explored various areas of programming. With solid practical experience accumulated through challenging projects, I bring a wealth of learning. In these challenges, I was constantly driven to innovate, self-learn, and above all, nurture my passion for technology.',
+          'Fascinated by technology since I can remember. After delving into the field with a technical course integrated into high school, I briefly ventured into game development and eventually explored various areas of programming.\n\nWith solid practical experience accumulated through challenging projects, I bring a wealth of learning. In these challenges, I was constantly driven to innovate, self-learn, and above all, nurture my passion for technology.',
       'send_message': 'Send Message',
       'name_field': 'Name',
       'email_field': 'Email',
