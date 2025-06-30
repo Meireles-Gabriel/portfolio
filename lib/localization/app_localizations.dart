@@ -21,7 +21,7 @@ class AppLocalizations {
       'qualification3_desc':
           'Aplicação prática de IA para agregar valor aos projetos por meio de automação inteligente, análise de dados e otimização de processos.',
       'about_text':
-          'Com uma sólida experiência prática, acumulada em projetos desafiadores, trago uma bagagem repleta de aprendizados. Nestes desafios, fui constantemente impulsionado a inovar, aprimorar minhas habilidades de forma autodidata e, acima de tudo, a nutrir minha paixão pela tecnologia. Minha abordagem é centrada na criação de soluções elegantes e eficientes, que não só atendam, mas superem as expectativas dos meus clientes. Estou comprometido em assegurar que cada projeto não apenas alcance, mas exceda seus objetivos de negócio, proporcionando qualidade e eficácia em cada etapa do processo.',
+          'Fascinado por tecnologia desde que me conheço por gente. Depois de me aprofundar na área com um curso técnico integrado ao ensino médio, me aventurei brevemente no mundo de desenvolvimento de jogos e, eventualmente, acabei por explorar várias áreas da programação. Com uma sólida experiência prática, acumulada em projetos desafiadores, trago uma bagagem repleta de aprendizados. Nestes desafios, fui constantemente impulsionado a inovar, aprimorar minhas habilidades de forma autodidata e, acima de tudo, a nutrir minha paixão pela tecnologia.',
       'send_message': 'Enviar Mensagem',
       'name_field': 'Nome',
       'email_field': 'Email',
@@ -63,7 +63,7 @@ class AppLocalizations {
       'qualification3_desc':
           'Practical application of AI to add value to projects through intelligent automation, data analysis, and process optimization.',
       'about_text':
-          'With a solid practical experience, accumulated from challenging projects, I bring a wealth of learnings. In these challenges, I have been constantly driven to innovate, enhance my skills self-taughtly, and above all, nurture my passion for technology. My approach is centered on creating elegant and efficient solutions that not only meet but exceed my client\'s expectations. I am committed to ensuring that each project not only achieves but surpasses its business objectives, providing quality and effectiveness at every stage of the process.',
+          'Fascinated by technology since I can remember. After delving into the field with a technical course integrated into high school, I briefly ventured into game development and eventually explored various areas of programming. With solid practical experience accumulated through challenging projects, I bring a wealth of learning. In these challenges, I was constantly driven to innovate, self-learn, and above all, nurture my passion for technology.',
       'send_message': 'Send Message',
       'name_field': 'Name',
       'email_field': 'Email',

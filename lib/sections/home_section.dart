@@ -116,20 +116,20 @@ class HomeSection extends ConsumerWidget {
                               onTap: () => launchUrl(Uri.parse(
                                   'https://www.instagram.com/bael.dev/')),
                             ),
-                            const SizedBox(width: 16),
-                            _buildSocialButton(
-                              context,
-                              icon: 'assets/images/youtube.png',
-                              onTap: () => launchUrl(Uri.parse(
-                                  'https://www.youtube.com/@BaelMeireles')),
-                            ),
-                            const SizedBox(width: 16),
-                            _buildSocialButton(
-                              context,
-                              icon: 'assets/images/tiktok.png',
-                              onTap: () => launchUrl(Uri.parse(
-                                  'https://www.tiktok.com/@bael.dev')),
-                            ),
+                            // const SizedBox(width: 16),
+                            // _buildSocialButton(
+                            //   context,
+                            //   icon: 'assets/images/youtube.png',
+                            //   onTap: () => launchUrl(Uri.parse(
+                            //       'https://www.youtube.com/@BaelMeireles')),
+                            // ),
+                            // const SizedBox(width: 16),
+                            // _buildSocialButton(
+                            //   context,
+                            //   icon: 'assets/images/tiktok.png',
+                            //   onTap: () => launchUrl(Uri.parse(
+                            //       'https://www.tiktok.com/@bael.dev')),
+                            // ),
                           ],
                         ),
                       ),
