@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio2025/localization/app_localizations.dart';
 import 'package:portfolio2025/providers/providers.dart';
 import 'package:portfolio2025/sections/projects_section.dart';
+import 'package:portfolio2025/widgets.dart/floating_particles.dart';
+import 'package:portfolio2025/widgets.dart/morphing_background.dart';
 
 class ProjectsPage extends ConsumerWidget {
   const ProjectsPage({super.key});
@@ -38,7 +40,7 @@ class ProjectsPage extends ConsumerWidget {
         'technologies': ['Flutter', 'AI'],
         'color': const Color(0xFF00B894),
       },
-      
+
       {
         'title': AppLocalizations.translate('project3_title', locale),
         'image': 'assets/images/project3.jpg',
@@ -79,40 +81,51 @@ class ProjectsPage extends ConsumerWidget {
           color: Theme.of(context).colorScheme.primary,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.1,
-            vertical: 60,
-          ),
-          child: Column(
-            children: [
-             
-              const SizedBox(height: 30),
-              ...allProjects.asMap().entries.map((entry) {
-                int index = entry.key;
-                Map<String, dynamic> project = entry.value;
+      body: Stack(
+        children: [
+          // Background with Morphing Shapes
+          const MorphingBackground(),
 
-                return FadeInUp(
-                  duration: const Duration(milliseconds: 800),
-                  delay: Duration(milliseconds: 200 * index),
-                  child: Container(
-                    margin: const EdgeInsets.only(bottom: 40),
-                    child: ProjectCard(
-                      title: project['title'],
-                      image: project['image'],
-                      description: project['description'],
-                      technologies: List<String>.from(project['technologies']),
-                      color: project['color'],
-                      isReversed: index % 2 == 1,
-                      url: project['url'],
-                    ),
-                  ),
-                );
-              }),
-            ],
+          // Floating Particles
+          const FloatingParticles(),
+
+          // Main content
+          SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: size.width * 0.1,
+                vertical: 60,
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 30),
+                  ...allProjects.asMap().entries.map((entry) {
+                    int index = entry.key;
+                    Map<String, dynamic> project = entry.value;
+
+                    return FadeInUp(
+                      duration: const Duration(milliseconds: 800),
+                      delay: Duration(milliseconds: 200 * index),
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 40),
+                        child: ProjectCard(
+                          title: project['title'],
+                          image: project['image'],
+                          description: project['description'],
+                          technologies:
+                              List<String>.from(project['technologies']),
+                          color: project['color'],
+                          isReversed: index % 2 == 1,
+                          url: project['url'],
+                        ),
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
