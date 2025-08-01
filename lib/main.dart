@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio2025/design.dart';
@@ -14,12 +13,13 @@ void main() async {
   );
 
   final String initialLocale =
-      PlatformDispatcher.instance.locale.languageCode == 'pt'
+      WidgetsBinding.instance.platformDispatcher.locale.languageCode == 'pt'
           ? 'pt_BR'
           : 'en_US';
 
   final bool initialIsDarkTheme =
-      PlatformDispatcher.instance.platformBrightness == Brightness.dark;
+      WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+          Brightness.dark;
   runApp(
     ProviderScope(
       overrides: [

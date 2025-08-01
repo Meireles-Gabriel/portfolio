@@ -65,8 +65,8 @@ class MorphingShapesPainter extends CustomPainter {
     final paint = Paint()
       ..style = PaintingStyle.fill
       ..color = isDarkTheme
-          ? const Color(0xFF1F2229).withOpacity(0.3)
-          : const Color(0xFFE8F4FD).withOpacity(0.3);
+          ? const Color(0xFF1F2229).withValues(alpha: 0.3)
+          : const Color(0xFFE8F4FD).withValues(alpha: 0.3);
 
     // Forma morfológica 1
     final path1 = Path();
@@ -85,8 +85,8 @@ class MorphingShapesPainter extends CustomPainter {
     final paint2 = Paint()
       ..style = PaintingStyle.fill
       ..color = isDarkTheme
-          ? const Color(0xFF2D3142).withOpacity(0.2)
-          : const Color(0xFFBDD5EA).withOpacity(0.2);
+          ? const Color(0xFF2D3142).withValues(alpha: 0.2)
+          : const Color(0xFFBDD5EA).withValues(alpha: 0.2);
 
     final path2 = Path();
     final center2X = size.width * 0.8;

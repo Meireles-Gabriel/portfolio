@@ -125,7 +125,7 @@ class _ContactSectionState extends ConsumerState<ContactSection> {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 20,
               offset: const Offset(0, 10),
             ),
@@ -221,7 +221,7 @@ class _ContactSectionState extends ConsumerState<ContactSection> {
       decoration: InputDecoration(
         labelText: label,
         labelStyle: GoogleFonts.montserrat(
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
         ),
         filled: true,
         fillColor: Theme.of(context).colorScheme.surface,
@@ -342,7 +342,8 @@ class _ContactSectionState extends ConsumerState<ContactSection> {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+              color:
+                  Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(

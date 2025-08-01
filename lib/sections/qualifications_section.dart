@@ -59,7 +59,8 @@ class QualificationsSection extends ConsumerWidget {
                 crossAxisCount: size.width > 768 ? 3 : 1,
                 crossAxisSpacing: 30,
                 mainAxisSpacing: 30,
-                childAspectRatio: size.width > 1200 ? 1.2 : (size.width > 768 ? 0.7 : 1.2),
+                childAspectRatio:
+                    size.width > 1200 ? 1.2 : (size.width > 768 ? 0.7 : 1.2),
               ),
               itemCount: qualifications.length,
               itemBuilder: (context, index) {
@@ -125,8 +126,11 @@ class _QualificationCardState extends State<QualificationCard> {
             boxShadow: [
               BoxShadow(
                 color: _isHovered
-                    ? Theme.of(context).colorScheme.primary.withOpacity(0.2)
-                    : Colors.black.withOpacity(0.1),
+                    ? Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withValues(alpha: 0.2)
+                    : Colors.black.withValues(alpha: 0.1),
                 blurRadius: _isHovered ? 20 : 10,
                 offset: Offset(0, _isHovered ? 10 : 5),
               ),
@@ -155,8 +159,10 @@ class _QualificationCardState extends State<QualificationCard> {
                 widget.description,
                 style: GoogleFonts.montserrat(
                   fontSize: 14,
-                  color:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.7),
                   height: 1.4,
                 ),
                 textAlign: TextAlign.center,

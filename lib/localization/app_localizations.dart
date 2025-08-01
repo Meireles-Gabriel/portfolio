@@ -38,6 +38,10 @@ class AppLocalizations {
       'project3_title': 'AutoTrade',
       'project3_desc':
           'Sistema de automação que aplica sinais de Opções Binárias enviados por traders profissionais no Telegram. Também possui uma integração com o ChatGPT para analisar o gráfico e gerar seus próprios sinais.',
+      'project4_title': 'RubberDuck',
+      'project4_desc':
+          'Um pet assistente virtual, posicionado no canto da tela e integrado com o ChatGPT, que analiza o que o usuário está fazendo e oferece sugestões, motivação e companhia.',
+      'show_all_projects': 'Ver Mais Projetos',
       'stat1_label': 'Comprometimento',
       'stat2_label': 'Foco',
       'stat3_label': 'Qualidade',
@@ -80,6 +84,10 @@ class AppLocalizations {
       'project3_title': 'AutoTrade',
       'project3_desc':
           'Automation system that applies Binary Options signals sent by professional traders on Telegram. It also has an integration with ChatGPT to analyze the graph and generate its own signals.',
+      'project4_title': 'RubberDuck',
+      'project4_desc':
+          'A virtual pet assistant, positioned in the corner of the screen and integrated with ChatGPT, that analyzes what the user is doing and offers suggestions, motivation, and companionship.',
+      'show_all_projects': 'Show More Projects',
       'stat1_label': 'Commitment',
       'stat2_label': 'Focus',
       'stat3_label': 'Quality',

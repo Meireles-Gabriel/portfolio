@@ -77,7 +77,7 @@ class AboutSection extends ConsumerWidget {
                             color: Theme.of(context)
                                 .colorScheme
                                 .onSurface
-                                .withOpacity(0.8),
+                                .withValues(alpha: 0.8),
                           ),
                         ),
                       ),
@@ -161,7 +161,7 @@ class AboutSection extends ConsumerWidget {
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
-                          .withOpacity(0.8),
+                          .withValues(alpha: 0.8),
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -174,14 +174,20 @@ class AboutSection extends ConsumerWidget {
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            _buildStatCard(context,
-                                AppLocalizations.translate('stat1_label', locale)),
+                            _buildStatCard(
+                                context,
+                                AppLocalizations.translate(
+                                    'stat1_label', locale)),
                             const SizedBox(width: 24),
-                            _buildStatCard(context,
-                                AppLocalizations.translate('stat2_label', locale)),
+                            _buildStatCard(
+                                context,
+                                AppLocalizations.translate(
+                                    'stat2_label', locale)),
                             const SizedBox(width: 24),
-                            _buildStatCard(context,
-                                AppLocalizations.translate('stat3_label', locale)),
+                            _buildStatCard(
+                                context,
+                                AppLocalizations.translate(
+                                    'stat3_label', locale)),
                           ],
                         )
                       : Column(
@@ -189,16 +195,22 @@ class AboutSection extends ConsumerWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                _buildStatCard(context,
-                                    AppLocalizations.translate('stat1_label', locale)),
+                                _buildStatCard(
+                                    context,
+                                    AppLocalizations.translate(
+                                        'stat1_label', locale)),
                                 const SizedBox(width: 24),
-                                _buildStatCard(context,
-                                    AppLocalizations.translate('stat2_label', locale)),
+                                _buildStatCard(
+                                    context,
+                                    AppLocalizations.translate(
+                                        'stat2_label', locale)),
                               ],
                             ),
                             const SizedBox(height: 24),
-                            _buildStatCard(context,
-                                AppLocalizations.translate('stat3_label', locale)),
+                            _buildStatCard(
+                                context,
+                                AppLocalizations.translate(
+                                    'stat3_label', locale)),
                           ],
                         ),
                 ),
@@ -215,7 +227,7 @@ class AboutSection extends ConsumerWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),

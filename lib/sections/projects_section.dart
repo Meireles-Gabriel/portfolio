@@ -4,6 +4,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio2025/localization/app_localizations.dart';
 import 'package:portfolio2025/providers/providers.dart';
+import 'package:portfolio2025/projects_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProjectsSection extends ConsumerWidget {
@@ -31,11 +32,11 @@ class ProjectsSection extends ConsumerWidget {
         'color': const Color(0xFF6C5CE7),
       },
       {
-        'title': AppLocalizations.translate('project2_title', locale),
-        'image': 'assets/images/project2.png',
-        'url': 'https://stockchef.web.app',
-        'description': AppLocalizations.translate('project2_desc', locale),
-        'technologies': ['Flutter', 'Firebase', 'Stripe'],
+        'title': AppLocalizations.translate('project4_title', locale),
+        'image': 'assets/images/project4.png',
+        'url': 'https://baelmeireles.itch.io/rubberduck',
+        'description': AppLocalizations.translate('project4_desc', locale),
+        'technologies': ['Flutter', 'AI'],
         'color': const Color(0xFF00B894),
       },
       {
@@ -94,6 +95,35 @@ class ProjectsSection extends ConsumerWidget {
               ),
             );
           }),
+          const SizedBox(height: 40),
+          FadeInUp(
+            duration: const Duration(milliseconds: 800),
+            delay: Duration(milliseconds: 200 * projects.length),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProjectsPage()),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: Text(
+                AppLocalizations.translate('show_all_projects', locale),
+                style: GoogleFonts.montserrat(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -148,8 +178,8 @@ class _ProjectCardState extends State<ProjectCard> {
               boxShadow: [
                 BoxShadow(
                   color: _isHovered
-                      ? widget.color.withOpacity(0.3)
-                      : Colors.black.withOpacity(0.1),
+                      ? widget.color.withValues(alpha: 0.3)
+                      : Colors.black.withValues(alpha: 0.1),
                   blurRadius: _isHovered ? 20 : 10,
                   offset: Offset(0, _isHovered ? 10 : 5),
                 ),
@@ -247,7 +277,10 @@ class _ProjectCardState extends State<ProjectCard> {
               widget.description,
               style: GoogleFonts.montserrat(
                 fontSize: 14,
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.7),
                 height: 1.4,
               ),
             ),
@@ -260,7 +293,7 @@ class _ProjectCardState extends State<ProjectCard> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
-                    color: widget.color.withOpacity(0.1),
+                    color: widget.color.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(

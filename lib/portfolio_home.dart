@@ -91,10 +91,10 @@ class _PortfolioHomeState extends ConsumerState<PortfolioHome> {
         height: 80,
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface.withOpacity(0.9),
+          color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.9),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -221,30 +221,5 @@ class _PortfolioHomeState extends ConsumerState<PortfolioHome> {
       default:
         return Container();
     }
-  }
-
-  Widget _buildSocialButton({
-    required String icon,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Theme.of(context).colorScheme.primary,
-            width: 2,
-          ),
-          shape: BoxShape.circle,
-        ),
-        child: Image.asset(
-          icon,
-          color: Theme.of(context).colorScheme.primary,
-          width: 20,
-          height: 20,
-        ),
-      ),
-    );
   }
 }

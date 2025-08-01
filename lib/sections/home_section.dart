@@ -77,7 +77,7 @@ class HomeSection extends ConsumerWidget {
                               color: Theme.of(context)
                                   .colorScheme
                                   .onSurface
-                                  .withOpacity(0.8),
+                                  .withValues(alpha: 0.8),
                             ),
                           ),
                         ),
@@ -152,11 +152,11 @@ class HomeSection extends ConsumerWidget {
                             Theme.of(context)
                                 .colorScheme
                                 .primary
-                                .withOpacity(0.3),
+                                .withValues(alpha: 0.3),
                             Theme.of(context)
                                 .colorScheme
                                 .secondary
-                                .withOpacity(0.3),
+                                .withValues(alpha: 0.3),
                           ],
                         ),
                         boxShadow: [
@@ -164,7 +164,7 @@ class HomeSection extends ConsumerWidget {
                             color: Theme.of(context)
                                 .colorScheme
                                 .primary
-                                .withOpacity(0.3),
+                                .withValues(alpha: 0.3),
                             blurRadius: 50,
                             spreadRadius: 5,
                           ),
@@ -202,11 +202,11 @@ class HomeSection extends ConsumerWidget {
                           Theme.of(context)
                               .colorScheme
                               .primary
-                              .withOpacity(0.3),
+                              .withValues(alpha: 0.3),
                           Theme.of(context)
                               .colorScheme
                               .secondary
-                              .withOpacity(0.3),
+                              .withValues(alpha: 0.3),
                         ],
                       ),
                       boxShadow: [
@@ -214,7 +214,7 @@ class HomeSection extends ConsumerWidget {
                           color: Theme.of(context)
                               .colorScheme
                               .primary
-                              .withOpacity(0.3),
+                              .withValues(alpha: 0.3),
                           blurRadius: 50,
                           spreadRadius: 5,
                         ),
@@ -285,7 +285,7 @@ class HomeSection extends ConsumerWidget {
                         color: Theme.of(context)
                             .colorScheme
                             .onSurface
-                            .withOpacity(0.8),
+                            .withValues(alpha: 0.8),
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -326,20 +326,20 @@ class HomeSection extends ConsumerWidget {
                         onTap: () => launchUrl(
                             Uri.parse('https://www.instagram.com/bael.dev/')),
                       ),
-                      const SizedBox(width: 16),
-                      _buildSocialButton(
-                        context,
-                        icon: 'assets/images/youtube.png',
-                        onTap: () => launchUrl(
-                            Uri.parse('https://www.youtube.com/@BaelMeireles')),
-                      ),
-                      const SizedBox(width: 16),
-                      _buildSocialButton(
-                        context,
-                        icon: 'assets/images/tiktok.png',
-                        onTap: () => launchUrl(
-                            Uri.parse('https://www.tiktok.com/@bael.dev')),
-                      ),
+                      // const SizedBox(width: 16),
+                      // _buildSocialButton(
+                      //   context,
+                      //   icon: 'assets/images/youtube.png',
+                      //   onTap: () => launchUrl(
+                      //       Uri.parse('https://www.youtube.com/@BaelMeireles')),
+                      // ),
+                      // const SizedBox(width: 16),
+                      // _buildSocialButton(
+                      //   context,
+                      //   icon: 'assets/images/tiktok.png',
+                      //   onTap: () => launchUrl(
+                      //       Uri.parse('https://www.tiktok.com/@bael.dev')),
+                      // ),
                     ],
                   ),
                 ),

@@ -16,8 +16,8 @@ class FloatingParticles extends ConsumerWidget {
         icon: Icons.code,
         shapeColors: {
           'icon': isDarkTheme
-              ? const Color(0xFFBDD5EA).withOpacity(0.1)
-              : const Color(0xFF657786).withOpacity(0.1),
+              ? const Color(0xFFBDD5EA).withValues(alpha: 0.1)
+              : const Color(0xFF657786).withValues(alpha: 0.1),
         },
         maxShapes: 15,
         speedMultiplier: 1.5,
