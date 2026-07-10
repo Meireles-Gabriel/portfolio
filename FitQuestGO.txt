@@ -1,0 +1,331 @@
+FitQuestGO • Fitness ao seu redor
+
+[VISÃO GERAL]
+
+Quero desenvolver um aplicativo fitness baseado no famoso GymRats, mas com um twist: Ele terá elementos parecidos com o jogo PokémonGO, onde o jogador deve andar na vida real e chegar em locais no mapa do jogo para adqurir missões do game. O jogo será desenvolvido em Flutter e será compatível com android, web (para que usuários de iPhone também possam utilizar, já que no momento não tenho a possibilidade de desenvolver para iOS) e smartwatch WearOS.
+
+[JOGABILIDADE]
+
+O app será baseado em atividades registradas pelos usuários.
+As atividades serão separadas em 3 categorias:
+- Strengh (Força): exercícios de força, como musculação e crossfit. Pontuadas por tempo de atividade (minutos).
+- Speed (Velocidade): Exercícios de velocidade, como corrida e ciclismo. Pontuadas por distância percorrida (km).
+- Well Being (Bem-Estar): exercícios leves, como yoga ou dança. Pontuadas por tempo de atividade (minutos).
+
+O usuário poderá utilizar o app de forma individual, registrando suas atividades e acompanhando seu progresso em seu perfil. A gameplay individual será baseada em missões concluídas pelo usuário. Para adquirir missões, o usuário deverá se mover em um mapa de sua localização atual e se mover até pontos do mapa onde as missões estejam disponíveis. O mapa possuirá os seguintes pontos:
+- Missões de Strengh (Força): poderão ser adquiridas em academias e similares.
+- Missões de Speed (Velocidade): poderão ser adquiridas em parques e similares.
+- Missões de Well Being (Bem-Estar): poderão ser adquiridas em Estúdios de Yoga e similares.
+- Itens de bônus (pontos extras em missões, missão extra para o dia, etc): poderão ser adquiridas em farmácias utilizando os pontos/moedas ganhos nas missões.
+
+Cada ponto do mapa fornecerá 3 missões aleatórias de acordo com sua categoria, e os pontos de itens fornecerão 3 itens aleatórios. As missões e itens disponíveis em cada ponto do mapa são atualizados diariamente. O usuário poderá ter até 3 missões e 3 itens ativos simultaneamente, podendo excluir missões atuais caso queira aceitar outras.
+As missões não precisam ser concluídas em uma única atividade. O progresso de cada missão aceita é rastreado e acumulado de forma contínua através das atividades registradas pelo jogador (ex: correr 2.5 km em um treino acumula progresso para uma missão de "Correr 5 km"). Cada missão no inventário do usuário exibirá uma barra de progresso visual.
+Ao concluir a meta estipulada de uma missão (100% da barra de progresso preenchida), o usuário deverá ir à tela de missões e clicar em "Concluir". O usuário poderá resgatar a recompensa de até 3 (Free) ou 5 (Premium) missões concluídas por dia. O item de recarga de energia serve para resetar essa contagem.
+O perfil do usuário exibirá sua pontuação de acordo com a categoria das missões realizadas, de modo que ele naturalmente acabe se tornando um usuário focado em Strength, Speed ou Well Being, o que refletirá nas cores exibidas em seu perfil (mais sobre isso na seção "DESIGN").
+Também poderá participar de grupos de desafios ou comunidades, criando ou entrando em um através de um código de convite, onde suas atividades registradas no período no desafio são automaticamente sincronizadas.
+Grupos de desafios:
+- Uma competição única com data de início e término.
+- Os membros participam e competem dentro do prazo especificado para alcançar o topo do ranking.
+- Sistemas de pontuação por dias ativos ou pontos das atividades.
+Comunidades:
+- Clubes fitness contínuos.
+- Registram automaticamente classificações semanais, mensais e anuais.
+Os grupos de desafios e comunidades poderão definir se serão obrigatórias fotos do dia para comprovar a atividade realizada. Se sim, apenas atividades realizadas com fotos anexadas serão consideradas na pontuação do grupo.
+A ideia é que o usuário registre atividades e o app automaticamente defina onde a atividade realizada terá efeito: Em missões aceitas, em registros de desafios ou em comunidades que ele faça parte.
+
+[GAMIFICAÇÃO E CONQUISTAS]
+
+Filosofia "SinglePlayer Gameplay": O app foca em uma experiência de gamificação sem atritos, baseada no autorrelato rápido do usuário através de "Cards de Contexto" ao finalizar uma atividade.
+- Cards de Contexto: Ao encerrar qualquer atividade (Strength, Speed ou Well Being), o usuário seleciona rapidamente tags em formato de chips referentes ao contexto do treino: Clima (ex: Ensolarado, Chuvoso), Estilo Musical (ex: Rock, Eletrônica, Zen) e Foco/Músculos (ex: Pernas, Peito, Corpo Todo). Todas as opções estão disponíveis para todas as categorias, permitindo combinações criativas.
+- Badges (Insígnias) e Títulos: Baseado no histórico e atividades do usuário, diferentes recompensas colecionáveis e equipáveis são desbloqueadas:
+  - Badges (Insígnias): São predominantemente QUANTITATIVAS. São conquistas focadas em marcos numéricos, como atingir o nível 50, correr 100km totais, concluir 50 missões ou visitar 10 locais. Elas possuem ícones customizados e servem para mostrar o progresso geral e tempo investido pelo usuário.
+  - Títulos: São predominantemente CONTEXTUAIS ou COMPORTAMENTAIS. São conquistas baseadas nos Cards de Contexto preenchidos ou em hábitos específicos do usuário, por exemplo: treinar frequentemente de madrugada ("Vampiro da Madrugada"), escutar Rock enquanto corre, ou não faltar no mesmo local por 7 dias ("Rato de Academia"). Eles são no formato de blocos de texto e são equipados junto ao nome do usuário no perfil.
+- Insígnias Ocultas: Insígnias ainda não conquistadas aparecem no perfil indicando apenas seu contorno bloqueado, instigando a curiosidade e o fator colecionável (estilo Pokédex).
+- Toasts Sequenciais: Para não travar a navegação, as recompensas e desbloqueios obtidos após uma atividade são exibidos através de Toasts sequenciais na tela, mantendo a fluidez da UX.
+- Regra de Recompensa: Cada objetivo alcançado concede apenas 1 tipo de recompensa (uma Insígnia OU um Título), valorizando cada conquista.
+
+[MAPA]
+
+Para o mapa do jogo, utilizaremos o pacote flutter_map nativo do Flutter (renderizado pelo motor Impeller/Skia) junto ao pacote latlong2, baseados em tiles visuais providos pelo OpenStreetMap em Dark Mode. Isso evita os gargalos de Platform Channels do Google Maps, permitindo carregar e exibir centenas de POIs sem travamentos e renderizando os marcadores puramente como Widgets dinâmicos do Flutter. É muito importante realizarmos um gerenciamento dos locais já carregados para evitar requisições desnecessárias à API (OpenStreetMap/Overpass) e leituras excessivas no banco de dados.
+O mapa do mundo real será dividido em um grid de setores usando "Geohash" (células geográficas). Cada célula (ex: um quadrado de 2x2km) será um único documento no Firestore contendo um array com todos os locais daquela área.
+O app utilizará um pipeline de cache agressivo em 3 camadas:
+1. Hive (Cache Local): Ao entrar em uma célula, o app verifica se os dados já estão salvos localmente e se são recentes (ex: menos de 3 dias). Se sim, carrega instantaneamente sem custo.
+2. Firestore (Cache em Nuvem): Se não estiver no Hive, busca o documento da célula no Firestore (apenas 1 leitura para dezenas de locais). O documento no Firestore também terá uma data de validade (ex: 30 dias). Se estiver expirado, o app forçará uma nova busca na API externa para atualizar a célula, adicionando novos locais e removendo os antigos (exceto locais patrocinados/manuais).
+3. OpenStreetMap (API Externa): Se a célula não existir no Firestore ou estiver expirada, faz a requisição externa, salva o documento atualizado no Firestore e, em seguida, salva no Hive.
+Para garantir resiliência e evitar bloqueios por limite de requisições (Rate Limit 429), a comunicação com a Overpass API utiliza um sistema de Round Robin, alternando entre 3 servidores independentes a cada requisição.
+Para balanceamento de gameplay, cerca de 33% dos parques e praças encontrados são convertidos deterministicamente para locais de Bem-Estar.
+Para evitar poluição visual no mapa e reduzir custos de banco de dados, um algoritmo de "Spatial Thinning" (Desbaste Espacial) é aplicado antes de salvar os dados no Firestore. Ele limita a quantidade de locais por Geohash e garante uma distância mínima entre eles (ex: 150m para Velocidade, Força e Bem-Estar; 300m para Farmácias), priorizando locais que possuam nomes reais.
+Deve ser possível para mim, como desenvolvedor, configurar manualmente locais específicos (Locais Patrocinados). Além disso, locais patrocinados criados por usuários apagam automaticamente POIs captados via OpenStreetMap num raio de 20 metros para garantir destaque (não afeta outros locais patrocinados). A criação ou edição de um local patrocinado força a atualização imediata do cache daquela célula Geohash no Firestore. Locais patrocinados nunca são filtrados pelo algoritmo de Spatial Thinning.
+Sidebar de Eventos no mapa (handheld): handle retrátil na lateral direita (30% da largura da tela) lista eventos patrocinados futuros de POIs próximos, ordenados por data. Toque em um card apenas centraliza o mapa no POI (pan), sem abrir bottom sheet nem destacar marcador. Cards de hoje recebem animação sutil de pulso. Eventos de loja exibem nome do evento ou "Abrir evento"; demais categorias exibem título da missão ou "Evento do dia!".
+
+[DESIGN]
+
+Quero um design minimalista inspirado em Liquid Glass, com tema escuro e cor secundária baseada na categoria de atividade mais realizada pelo usuário:
+- Vermelho: Strengh.
+- Azul: Speed.
+- Verde: Well Being.
+- Branco: Conta sem pontuação ou com empate em 2 ou 3.
+Foco no design Liquid Glass.
+
+[PÁGINAS]
+
+Tela inicial de login:
+- Opções de login com e-mail ou conta Google.
+
+Tela de cadastro:
+- Nome e opção de adicionar foto.
+
+Tela Principal:
+- A partir dessa tela, já deve estar disponível uma SideNavBar para as demais telas.
+- Mapa da localização do usuário com os pontos de missões e itens.
+- Sidebar retrátil de Eventos patrocinados (handheld; ver [EVENTOS PATROCINADOS]).
+
+Perfil:
+- Foto.
+- Nome (com Título e Insígnia ativos em destaque).
+- Botões para abrir Modais de Títulos e Insígnias (exibe as conquistas desbloqueadas e as silhuetas ocultas, permitindo equipar/selecionar).
+- Número de curtidas recebidas (clicável: abre Modal com a lista de perfis que curtiram).
+- Pontuação nas 3 categorias de atividade.
+- Calendário interativo com registro das atividades.
+- Efeito colorido no background do perfil, de acordo com a categoria de atividade mais realizada.
+- Nota: Em qualquer tela do app, ao clicar na foto de um usuário, deve-se abrir um Modal com o perfil dele, exibindo suas informações, número de curtidas e as comunidades/desafios públicos aos quais faz parte. O usuário logado pode curtir o perfil visualizado.
+
+Criação de grupo:
+- Opções para criar um Desafio ou uma Comunidade.
+
+Criação de Desafio:
+- Foto de banner (opcional).
+- Nome (obrigatório).
+- Detalhes (opcional).
+- Visibilidade (Público ou Privado).
+- Data de início (padrão: hoje).
+- Data de término (padrão: 1 mês, máximo permitido).
+- Sistema de pontuação (Dias Ativos, Missões Concluídas, Pontuação de Missões, Tempo em Atividade, Distância, Calorias).
+- Gera código único para convite após a criação.
+
+Criação de Comunidade:
+- Foto de banner (opcional).
+- Nome (obrigatório).
+- Detalhes (opcional).
+- Visibilidade (Público ou Privado).
+
+Telas de Grupos (Desafios e Comunidades):
+- Desafios possuem 3 abas: Atividades (com reações e comentários), Ranking (Leaderboard dinâmico) e Bate-Papo (mensagens limpas após 1 semana).
+- Comunidades possuem 3 abas: Desafios (lista de desafios ativos da comunidade), Publicações (feed estilo Facebook com reações e comentários, limpos após 1 semana) e Bate-Papo (mensagens limpas após 1 semana).
+- Ambas possuem banner de fundo (ou cor baseada no líder/criador) e header com informações principais.
+
+Registro de Atividade:
+- O botão de "Registrar Nova" abre um Modal com um dropdown listando todas as atividades disponíveis e atalhos para as 3 atividades mais recentes do usuário.
+- Abaixo, há dois botões de ação: "Começar agora!" e "Registrar concluída".
+- "Começar agora!": Após uma animação "3...2...1... Vai!" no meio da tela, inicia o Live Tracker.
+  - A tela exibe a atividade selecionada no topo, um cronômetro e (para atividades de velocidade) um contador de distância via GPS.
+  - Há um FloatingActionButton (FAB) no canto superior esquerdo para pausar/encerrar o rastreamento ao vivo.
+  - Ao clicar no FAB, a tela transita para o modo de "Revisão": o cronômetro visual dá lugar a botões editáveis (calendário, relógio para horário de início, duração da atividade, e distância se aplicável). Estes campos vêm pré-preenchidos com os dados que o app rastreou, mas são totalmente editáveis caso o usuário queira corrigir o tracking do GPS ou tempo.
+  - Após clicar no FAB uma vez, sua função muda para a ação de "Finalizar/Salvar" a atividade.
+  - Abaixo, aparece a seção "Opcionais - Necessários para desbloquear alguns Títulos e Insígnias", exibindo os Cards de Contexto (clima, estilo musical, grupo muscular, etc).
+  - Por fim, há opção de anexar uma foto, que é salva diretamente em nuvem no Firebase Storage para sincronização e exibição imediata em grupos/desafios inter-dispositivos.
+- "Registrar concluída": Abre diretamente a mesma tela do estado de "Revisão", pulando o rastreamento ao vivo. Todos os campos (dados vitais, Context Cards e Fotos) são mantidos, porém com tempo e distâncias iniciados em zero para formatação 100% manual.
+
+Configurações:
+- Painel centralizado para preferências gerais e conta.
+- Seleção de Idioma.
+- Configurações de Áudio (Ativar/Desativar Efeitos Sonoros / SFX).
+- Configurações de Notificações via Firebase Cloud Messaging com "Toggles" individuais ativando/desativando: Curtidas no Perfil, Interações em Desafios, Interações em Comunidades e Mensagens no Chat.
+- Links rápidos para Termos de Privacidade, Exclusão de Conta e Logout.
+
+[VERSÃO PARA SMARTWATCH (WEAROS)]
+
+Versão resumida pareada ao celular via Wear Connectivity. O relógio não substitui o handheld para configuração, compras ou resgate completo de recompensas — redenção de eventos e claim de missões ocorrem no telefone.
+
+Shell principal (`WearMainShellPage`): navegação vertical entre 6 abas (lazy load), com indicador de página e banner de conexão:
+0. Radar — bússola/navegação até POIs próximos.
+1. Perfil — visualização resumida do usuário.
+2. Desafios — rankings dos desafios ativos (scroll horizontal infinito entre desafios).
+3. Missões — missões aceitas com barra de progresso (scroll horizontal infinito; card espelha layout de Eventos).
+4. Eventos — eventos patrocinados num raio de 5 km (somente leitura; scroll horizontal infinito).
+5. Tracker — rastreamento ao vivo sincronizado com o celular (iniciar/pausar/encerrar via mensagens Wear).
+
+Layout compartilhado (Missões, Eventos, Desafios): fundo animado na cor da categoria do item atual, título centralizado, card `LiquidGlass` com altura fixa (120× escala Wear), bloco título+card centralizado na tela.
+
+Autenticação Wear: rota inicial `/landing` (não exibe splash "Sincronizando com celular..."). A landing tenta sync com o telefone em background; botão "Tentar novamente" para nova tentativa. `WearProxyUserService` não persiste redenções de evento no relógio (intencional — fluxo só no handheld).
+
+[INICIALIZAÇÃO DO APP]
+
+Handheld e WearOS compartilham `lib/main.dart` e `AppBootstrap`, diferenciados por flavor Gradle (`handheld` / `wear`) e `AppConstants.isWearOS` (dart-define `WEAR_OS` ou `FLUTTER_APP_FLAVOR=wear`).
+- Handheld: boot crítico (Firebase, Hive, DI, wear connectivity/auth sync). Serviços pesados adiados via `DeferredStartupService` ao entrar em `/main` (Billing, AdMob, FCM/notificações, WearDebugRelay). Splash exige rede para `getCurrentUser()` (Firestore) e `isEmailVerified()` (`user.reload()`); navega para `/main` após essas etapas e adia hidratação/billing em background; erros de rede/timeout exibem retry no splash (sem fallback offline). Timeouts: splash 30s, hidratação de perfil 15s.
+- WearOS: boot mínimo (conectividade + auth sync). Rota inicial `/landing` (não `/splash`); remove splash nativo e tenta `checkAuthStatus()` em background (timeout 15s). Se sync com celular falhar, permanece na landing com botão de retry. Sync dedicado no splash interno do auth: até 12s (`wearAuthSplashTimeoutSeconds`); sync geral via Wear Connectivity: 15s. Abas do shell carregam sob demanda (lazy). Auth depende do celular pareado; sessão offline via Hive `wear_session_box`.
+- WearPlugin (Android): sem referências estáticas a `WearableActivityController` no handheld; bridge ambient carregado por reflexão apenas em dispositivos `FEATURE_WATCH`; deps wearable apenas no flavor `wear`.
+
+[MONETIZAÇÃO]
+
+Assinatura Premium:
+- Clientes Free podem ter ou fazer parte de até 2 grupos. Premium é ilimitado.
+- Limite de 5 missões/itens simultâneos (em vez de 3).
+- Limite de resgate de 5 recompensas de missões concluídas por dia (em vez de 3 para Free).
+- Emblema de "Membro Elite".
+- Opção de escolher a cor predominante, com a opção de cor dourada além das padrões.
+- Não é necessário ver anúncios para reroll de missões (limite de 5 rerolls por POI).
+- **Modelo Híbrido Multiplataforma**: Compras no aplicativo via Google Play / App Store intermediadas pela SDK RevenueCat, e para usuários Web, checkouts gerenciados pela própria solução de Web Billing da RevenueCat (Stripe), mantendo os entitlements (direitos de acesso) unificados.
+
+Assinatura de Ponto Patrocinado (SaaS B2B Self-Service):
+- Voltado para donos de academias, estúdios, farmácias, etc.
+- Assinatura independente do plano Premium (não substitui ou engloba a assinatura de jogador).
+- O usuário gerencia seu próprio ponto no mapa pelo app.
+- Configurações do ponto: Nome, Descrição, Categoria (Força, Velocidade, Bem-Estar ou Loja), Localização (via mini-mapa com alfinete, validado pela proximidade física do usuário no momento da criação — máx. 30 m para evitar fraudes).
+- Catálogo: Adição de Produtos e Serviços (foto, nome e preço).
+- Contato: Botão de link/WhatsApp.
+- Moderação: Botão de "Denunciar local" disponível para os jogadores.
+- Aviso ao dono: o ponto pode levar até 3 dias para ficar visível para todos os jogadores no mapa.
+- Fallback: Caso a assinatura não seja renovada, o ponto perde o destaque, fotos e catálogo, tornando-se um POI comum no jogo.
+
+[EVENTOS PATROCINADOS]
+
+Feature B2B2C ligada ao Ponto Patrocinado: o dono agenda até 3 eventos futuros; cada data deve estar a pelo menos 7 dias de qualquer outra data de evento (agendados ou já concluídos, em `completedEventDates`). Eventos passados são purgados automaticamente para `completedEventDates` e removidos da lista ativa.
+
+Fluxo do dono (aba Premium → Ponto Patrocinado):
+- Salvar categoria/localização do ponto antes de agendar eventos.
+- Adicionar/editar/remover eventos com data, título e (para não-lojas) atividade obrigatória.
+- Loja (`LocationType.shop`): evento exige nome; no dia, jogadores no local escolhem carta misteriosa (sem missão de atividade).
+- Academia/parque/estúdio: evento exige título da missão + tipo de atividade da categoria do POI.
+- Lista vazia exibe mensagem própria (`sponsoredEventsEmpty`), não o texto da sidebar do jogador.
+
+Projeção no mapa:
+- Até 3 resumos de eventos futuros (`PoiEventSummary`: eventId, scheduledDate, missionTitle, isShopEvent) são gravados no POI da célula Geohash quando o ponto é salvo.
+- Categoria do evento deve coincidir com a categoria atual do POI; divergência oculta o evento no mapa com aviso ao dono.
+
+Fluxo do jogador (handheld):
+1. Sidebar de Eventos no mapa — lista eventos futuros; toque faz pan para o POI (zoom 18.5, offset para área visível com sidebar aberta).
+2. Bottom sheet do POI patrocinado — exige proximidade ≤ 30 m para interagir.
+3. No dia do evento:
+   - Não-loja: missão especial nível 3 (1000 XP, 1 min de atividade no local, progresso em sessão única). ID: `event_{poiId}_{eventId}_{YYYYMMDD}`. Missão expira ao fim do dia se não concluída (removida silenciosamente do inventário).
+   - Loja: modal com 6 cartas; recompensas determinísticas (moedas 500/750/1000 ou itens raro/lendário). Exige espaço no inventário. Uma redenção por usuário/dia/evento em `users/{uid}/sponsored_event_redemptions/{poiId}_{eventId}_{YYYY-MM-DD}`.
+4. Botão "Começar atividade" no header do bottom sheet (não-loja, no dia, em alcance) inicia tracking com a atividade do evento.
+
+WearOS:
+- Aba Eventos: cards somente leitura dentro de 5 km; scroll horizontal infinito; data localizada ou "Hoje".
+- Aba Missões: progresso das missões aceitas (incluindo missões de evento); concluída exibe ✓ + "Abra o celular"; incompleta exibe barra + %.
+
+Constantes principais (`app_constants.dart`):
+- `sponsoredMaxEvents` = 3, `sponsoredMinEventIntervalDays` = 7, `sponsoredEventXpReward` = 1000
+- `mapEventsSidebarWidthRatio` = 0.3, `mapEventPanZoom` = 18.5
+- `wearEventsNearbyRadiusM` = 5000, `shopEventCoinRewards` = [500, 750, 1000]
+
+Locais patrocinados (Manuais/Desenvolvedor):
+- Destaque no mapa.
+- Exibição de produtos ou serviços reais do local.
+- Ao clicar em produtos, é aberto link ou WhatsApp do local.
+- Suporte a eventos agendados (ver seção [EVENTOS PATROCINADOS]).
+
+Anúncios em Vídeo com Recompensa (Opt-in):
+- Apenas para reroll grátis de missões ou itens (Limite de 3 rerolls por POI).
+
+Anúncios Nativos no Feed:
+- Exibição de banners de anúncios nativos a cada 10 posts publicados nas comunidades.
+- Formatados organicamente para funcionarem e se parecerem com uma publicação de jogador na timeline.
+
+[TECNOLOGIAS]
+
+O app será desenvolvido utilizando Flutter, com as seguintes tecnologias adicionais já definidas:
+
+- MobX para gerenciamento de estado.
+- Geolocator, flutter_map e latlong2 para a renderização do mapa de tiles, coordenadas e localização do usuário.
+- GetIt para injeção de dependências.
+- Dio para requisições http, quando necessário.
+- Hive para armazenamento local de configurações e demais dados que não precisam ser salvos em nuvem.
+- Firebase Firestore Database para salvar progresso, para que possa ser compartilhado entre plataformas e dispositivos.
+- Firebase Hosting para hospedagem na web.
+- Firebase Authentication para login.
+- Firebase Cloud Messaging e `flutter_local_notifications` para o sistema de notificações push, orquestradas via Firebase Cloud Functions.
+- Idiomas: Português (pt_BR), Inglês (en_US), Espanhol (es), Francês (fr), Chinês (zh) e Hindi (hi).
+- Efeitos sonoros com `audioplayers` instanciado via singleton de serviço injetado (áudio de ação e contagem regressiva).
+- Tudo bem estruturado, seguindo os melhores padrões de Clean Arch.
+
+[DETALHAMENTO DE TELAS DE GRUPOS]
+
+Na tela de criação de Desafio, devemos ter:
+- Opção de selecionar foto do banner.
+- TextField "Nome do desafio", seguindo estilo do TextField de nome ao registrar atividade.
+- TextField "Descrição (Opcional)" , seguindo estilo do TextField de detalhes ao registrar atividade.
+- "Data de início" para selecionar data, como no registro de atividade.
+- "Data final" para selecionar data, como no registro de atividade.
+- Text exibindo quantos dias serão.
+- Text "Foco do desafio" com fonte um pouco maior.
+- Row com botões para as 3 categorias - Força, Velocidade e Bem-Estar - cada qual com sua cor e, ao selecionar um, o app assume aquela cor predominante.
+- Dropdown com opções de "Sistema de pontuação":
+ 1. "Dias ativos": A maioria dos dias com pelo menos um check-in.
+ 2. "Contagem de check-in": Maior número de check-ins.
+ 3. "Duração": A maior parte do tempo gasto ativo.
+ 4. "Distância": Maior distância percorrida.
+ 5. "Passos": A maioria dos passos dados.
+ 6. "Calorias": Mais calorias queimadas.
+- Text "Compartilhar com comunidade:"
+- Row com pequenos chips para cada comunidade que o jogador faz parte, para que ele possa marcar com quais comunidades quer compartilhar.
+
+IMPORTANTE: Deve ser adicionado à tela de registro de atividade os campos para preencher a(s) métrica(s) que ainda não estão sendo registradas.
+
+Ao clicar para criar, deve ser aberta a tela do desafio e - apenas na primeira abertura - exibido um modal para copiar o código do Desafio.
+
+Na tela de criação de Comunidade, devemos ter:
+- Opção de selecionar foto do banner.
+- TextField "Nome do desafio", seguindo estilo do TextField de nome ao registrar atividade.
+- TextField "Descrição (Opcional)" , seguindo estilo do TextField de detalhes ao registrar atividade.
+- Text "Foco da comunidade" com fonte um pouco maior.
+- Row com botões para as 3 categorias - Força, Velocidade e Bem-Estar - cada qual com sua cor e, ao selecionar um, o app assume aquela cor predominante.
+
+Ao clicar para criar, deve ser aberta a tela da comunidade e - apenas na primeira abertura - exibido um modal para copiar o código do Desafio.
+
+A tela do Desafio deve ter:
+3 ABAS
+Aba 1: Ícone de "Detalhes"
+- Informações gerais sobre o Desafio, como nome, data de criação, criador, descrição e código do desafio para ser copiado.
+Aba 2: Ícone de "Home". Aba aberta inicialmente ao entrar na página.
+- Imagem de Banner ao fundo.
+- Row exibindo quem está no topo do desafio, minha posição no desafio e o número de dias restantes. Ao clicar nessa Row, é aberto um Modal com uma ProgressBar com início da data de início do Desafio e final como a data final do Desafio, e o ranking completo abaixo.
+- Feed com Cards de todas as atividades registradas pelos jogadores do Desafio, com a mais recente no topo. Ao clicar em um card, é aberto um Modal com a publicação completa e todas as informações registradas na ativdade.
+Aba 3: Ícone de "Chat" ou "Bate-Papo"
+- Chat geral do desafio.
+
+Na tela de Comunidade deve ter:
+4 ABAS
+Aba 1: ícone de "Home", aba aberta inicialmente ao entrar na página.
+- Feed da comunidade, como já descrito em outros pontos (Textfield para incluir publicação, publicações com opção de incluir foto e de outras pessoas comentarem, 5 tipos de reação, etc).
+Aba 2: ícone de "Desafio"
+- Todos os desafios criados por membros da comunidade e que foi selecionado para ser compartilhado com essa comunidade.
+Aba 3: ícone de "ranking"
+- ranking geral ds membros do grupo, sendo contado de acordo com quem venceu mais desafios da comunidade.
+Aba 4: ícone de "Chat" ou "Bate-Papo"
+- Chat geral da comunidade.
+
+
+Checklist de Política de Privacidade
+Cláusula introdutória: nome da empresa, quem se aplica, termos definidos, data da última atualização.
+
+Dados coletados: categorias de informações pessoais e sensíveis.
+
+Finalidade da coleta: marketing, criação de contas, pedidos, anúncios direcionados etc.
+
+Métodos de coleta: formulários, cookies, login, pagamentos, gravações.
+
+Compartilhamento de dados: categorias de terceiros, motivos e formas de compartilhamento.
+
+Direitos dos usuários: acesso, correção, exclusão, portabilidade, objeção, retirada de consentimento.
+
+Como exercer direitos: links para DSAR, “Do Not Track”, “Do Not Sell” (CCPA), contatos válidos.
+
+Voluntariedade da coleta: informar se é obrigatória ou opcional e consequências.
+
+Incentivos financeiros: descontos ou promoções vinculados ao compartilhamento de dados.
+
+Transferências internacionais: países envolvidos, decisões de adequação ou salvaguardas.
+
+Retenção de dados: prazo ou critérios para manter informações.
+
+Medidas de segurança: criptografia, pseudonimização, testes regulares.
+
+Atualizações da política: frequência, forma de comunicação e necessidade de novo consentimento.
+
+Reclamações: direito de denunciar violações, contatos de autoridades competentes.
+
+DPIAs: avaliações de impacto quando há alto risco (dados sensíveis, menores, decisões automatizadas).
+
+Informações de contato: endereço, e-mail, telefone, DPO se aplicável.

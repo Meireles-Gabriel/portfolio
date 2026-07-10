@@ -17,27 +17,18 @@ class ProjectsSection extends ConsumerWidget {
 
     final projects = [
       {
-        'title': AppLocalizations.translate('project1_title', locale),
-        'url': 'https://editto.web.app',
-        'image': 'assets/images/project1.png',
-        'description': AppLocalizations.translate('project1_desc', locale),
+        'title': AppLocalizations.translate('project5_title', locale),
+        'url': 'https://fitquestgo.web.app',
+        'image': 'assets/images/project5.png',
+        'description': AppLocalizations.translate('project5_desc', locale),
         'technologies': [
           'Flutter',
-          'Python',
-          'AI',
           'Firebase',
-          'Cloud Run',
-          'Stripe'
+          'MobX',
+          'WearOS',
+          'RevenueCat',
         ],
-        'color': const Color(0xFF6C5CE7),
-      },
-      {
-        'title': AppLocalizations.translate('project4_title', locale),
-        'image': 'assets/images/project4.png',
-        'url': 'https://baelmeireles.itch.io/rubberduck',
-        'description': AppLocalizations.translate('project4_desc', locale),
-        'technologies': ['Flutter', 'AI'],
-        'color': const Color(0xFF00B894),
+        'color': const Color(0xFF0984E3),
       },
       {
         'title': AppLocalizations.translate('project3_title', locale),
@@ -51,6 +42,21 @@ class ProjectsSection extends ConsumerWidget {
           'Selenium',
         ],
         'color': const Color(0xFFE17055),
+      },
+      {
+        'title': AppLocalizations.translate('project1_title', locale),
+        'url': 'https://editto.web.app',
+        'image': 'assets/images/project1.png',
+        'description': AppLocalizations.translate('project1_desc', locale),
+        'technologies': [
+          'Flutter',
+          'Python',
+          'AI',
+          'Firebase',
+          'Cloud Run',
+          'Stripe'
+        ],
+        'color': const Color(0xFF6C5CE7),
       },
     ];
 

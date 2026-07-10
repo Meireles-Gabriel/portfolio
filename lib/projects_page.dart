@@ -18,6 +18,33 @@ class ProjectsPage extends ConsumerWidget {
 
     final allProjects = [
       {
+        'title': AppLocalizations.translate('project5_title', locale),
+        'url': 'https://fitquestgo.web.app',
+        'image': 'assets/images/project5.png',
+        'description': AppLocalizations.translate('project5_desc', locale),
+        'technologies': [
+          'Flutter',
+          'Firebase',
+          'MobX',
+          'WearOS',
+          'RevenueCat',
+        ],
+        'color': const Color(0xFF0984E3),
+      },
+      {
+        'title': AppLocalizations.translate('project3_title', locale),
+        'image': 'assets/images/project3.jpg',
+        'url': '',
+        'description': AppLocalizations.translate('project3_desc', locale),
+        'technologies': [
+          'Flutter',
+          'Python',
+          'AI',
+          'Selenium',
+        ],
+        'color': const Color(0xFFE17055),
+      },
+      {
         'title': AppLocalizations.translate('project1_title', locale),
         'url': 'https://editto.web.app',
         'image': 'assets/images/project1.png',
@@ -33,28 +60,6 @@ class ProjectsPage extends ConsumerWidget {
         'color': const Color(0xFF6C5CE7),
       },
       {
-        'title': AppLocalizations.translate('project4_title', locale),
-        'image': 'assets/images/project4.png',
-        'url': 'https://baelmeireles.itch.io/rubberduck',
-        'description': AppLocalizations.translate('project4_desc', locale),
-        'technologies': ['Flutter', 'AI'],
-        'color': const Color(0xFF00B894),
-      },
-
-      {
-        'title': AppLocalizations.translate('project3_title', locale),
-        'image': 'assets/images/project3.jpg',
-        'url': '',
-        'description': AppLocalizations.translate('project3_desc', locale),
-        'technologies': [
-          'Flutter',
-          'Python',
-          'AI',
-          'Selenium',
-        ],
-        'color': const Color(0xFFE17055),
-      },
-      {
         'title': AppLocalizations.translate('project2_title', locale),
         'image': 'assets/images/project2.png',
         'url': 'https://stockchef.web.app',
@@ -62,7 +67,14 @@ class ProjectsPage extends ConsumerWidget {
         'technologies': ['Flutter', 'Firebase', 'Stripe'],
         'color': const Color(0xFF6C5CE7),
       },
-      // Add more projects here as needed
+      {
+        'title': AppLocalizations.translate('project4_title', locale),
+        'image': 'assets/images/project4.png',
+        'url': 'https://baelmeireles.itch.io/rubberduck',
+        'description': AppLocalizations.translate('project4_desc', locale),
+        'technologies': ['Flutter', 'AI'],
+        'color': const Color(0xFF00B894),
+      },
     ];
 
     return Scaffold(

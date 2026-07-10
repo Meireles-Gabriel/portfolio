@@ -41,6 +41,9 @@ class AppLocalizations {
       'project4_title': 'RubberDuck',
       'project4_desc':
           'Um pet assistente virtual, posicionado no canto da tela e integrado com o ChatGPT, que analiza o que o usuário está fazendo e oferece sugestões, motivação e companhia.',
+      'project5_title': 'FitQuest GO',
+      'project5_desc':
+          'App fitness gamificado que mistura missões no mapa real, registro de atividades e competições em desafios e comunidades. Desenvolvido em Flutter para Android, Web e WearOS com Firebase.',
       'show_all_projects': 'Ver Mais Projetos',
       'stat1_label': 'Comprometimento',
       'stat2_label': 'Foco',
@@ -87,6 +90,9 @@ class AppLocalizations {
       'project4_title': 'RubberDuck',
       'project4_desc':
           'A virtual pet assistant, positioned in the corner of the screen and integrated with ChatGPT, that analyzes what the user is doing and offers suggestions, motivation, and companionship.',
+      'project5_title': 'FitQuest GO',
+      'project5_desc':
+          'A gamified fitness app combining real-world map missions, activity tracking, and competitions in challenges and communities. Built with Flutter for Android, Web, and WearOS using Firebase.',
       'show_all_projects': 'Show More Projects',
       'stat1_label': 'Commitment',
       'stat2_label': 'Focus',
